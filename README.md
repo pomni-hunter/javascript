@@ -20,3 +20,10 @@ or
 `""` is a string variable
 
 what do you the the number 1 is?
+
+### Math symbols
+
+#### +
+#### -
+#### *
+#### /
