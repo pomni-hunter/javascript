@@ -27,6 +27,8 @@ what do you the the number 1 is?
 #### -
 #### *
 #### /
+#### >
+#### <
 
 ### Different types of Variables
 
