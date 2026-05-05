@@ -29,9 +29,20 @@ what do you the the number 1 is?
 #### /
 #### >
 #### <
+#### == (===) is better but a little confusion
 
 ### Different types of Variables
 
 #### string 
 #### int
-#### boolean
+#### boolean (bool)
+
+#### How comparisons of equality work
+
+### int and int 
+  anything is OK
+
+### string and string 
+  compares lenght of string as an int
+
+
