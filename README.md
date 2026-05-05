@@ -44,3 +44,5 @@ what do you the the number 1 is?
 
 ### string and string 
   compares lenght of string as an int
+
+#### NEXT LESSON
