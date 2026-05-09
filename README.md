@@ -57,6 +57,14 @@ what do you the the number 1 is?
 
   if a Variable(var) is a THING, a Function(function) is a DO. Function let you DO. They are easy to use and fun to play with. Think of a BOX. A box that has one JOB to do. Every time you hit the box, something will come out.
 
+#### What we did 2026-04-09
+introduced functions as a box where
+ 1. you can call a function that will always produce an expected response (console.log())
+ 2. passing a parameter onto the function and access it withing the body. (relationship between the parameter name and how to reference it)
+ 3. passing multiple parameters. (how each parameter ownes a slot and if the parameters are mismatched, there are errors or undefined)
+ 
+ We used the example as putting something (parameter) into a box and how to add space to add more things to the box (multi-parameters)
+
 
   ## Fun Stuff
 
