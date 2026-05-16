@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0px !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: slategrey;
+    padding: 0px 44px;
+}
+
+h1 {
+    color: white;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 22px;
+}
+
+section {
+    display: flex;
+    align-items: center;
+
+}
+
+footer {
+    background-color: slategray;
+    padding: 44px;
+}
+
+button {
+    border: none;
+    border-radius: 4px;
+    padding: 22px;
+    cursor: pointer;
+    background-color: rgb(251, 2, 135);
+    color: white;
+    font-size: 1.3rem;
+}
+
+button:hover {
+    background-color: rgb(238, 154, 199);
+}
+
+h2 {
+    color: white;
+}
+
+p {
+    font-size: 1.3rem;
+
+}
+
+
+/* ----------------------------- */
+
+#pomni-logo {
+    height: 62px;
+    width: 62px;
+}
+
+#do-it {
+    font-size: 4rem;
+}
+
+#do-it-times {
+    font-size: 4rem;
+}
