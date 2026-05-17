@@ -27,7 +27,10 @@ resetButton.addEventListener('click', (button) => {
 });
 
 letsGoButton.addEventListener('click', (button) => {
-    if (doItText == "" && doItTimesText == "") return;
+    if (doItText == "" && doItTimesText == "") {
+        console.log("Please add a command");
+        return;
+    }
     doIt.textContent = doItText;
     doItTimes.textContent = doItTimesText;
     pomni.src = "images/pomni_01.png";
@@ -39,7 +42,7 @@ caine.addEventListener('click', (button) => {
 })
 
 function startTimer(time) {
-    console.log("GO!")
+    console.log("GO! You have ", timerTime, " seconds")
     timer.textContent = time--;
     timerId = setInterval(() => {
         timer.textContent = time--;
