@@ -64,8 +64,27 @@ p {
 
 /* ----------------------------- */
 
-#pomni-logo {
-    height: 62px;
+#timer-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#caine-logo {
+    height: 75px;
+    width: 128px;
+    padding-right: 1.5rem;
+    cursor: pointer;
+}
+
+#caine-logo:hover {
+    height: 80px;
+    width: 132px;
+    transition: all 0.2s ease-in-out;
+}
+
+#pomni-logo2 {
+    height: 75px;
     width: 62px;
 }
 
