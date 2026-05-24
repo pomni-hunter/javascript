@@ -65,4 +65,34 @@ function pomniDoSomething(doThis, times) {
 // Let's add some new functions
 
 // What can Pomni do? Let's think.
+// Pomni can
+//// walk
+//// jump
+//// jump high
+//// fly
+//// swim
+//// smash
 
+function walk(){
+    console.log("WALK!")
+}
+
+function jump(){
+    console.log("JUMP!")
+}
+
+function jumpHigh(){
+    console.log("JUMP HIGH!")
+}
+
+function fly(){
+    console.log("FLY!")
+}
+
+function swim() {
+    console.log("SWIM!")
+}
+
+function smash(){
+    console.log("SMASH!")
+}
