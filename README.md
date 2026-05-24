@@ -79,3 +79,18 @@ Once they understand passing data into functions, they can try building:
 *   **A "Greeting Generator":** A function that takes a `name` and `timeOfDay` to say "Good morning, [Name]!"
 *   **A Simple Quiz:** Use their comparison skills within a function to check if an answer is correct.
 *   **Interactive Tools:** Platforms like [CodeCombat](https://codecombat.com) or [Kid.js](https://kidjs.app/activities) are excellent for practicing functions in a game-like environment.
+
+
+#### 2026-05-24
+
+Let's move as fast as we can!! 
+
+  - [] HTML    - Start Button
+  - [] HTML    - Stop Button
+  - [] HTML    - Next Button
+  - [] HTML    - CountUp Timer
+  - [] JS      - CountUp Timer Event Start
+  - [] JS      - Accumumated Time
+  - [] JS/HTML - Good Job + Finish Time
+  - [] JS/HTML - Go! Indicator (if command is correct)
+  - [] HTML    - (optional) Next Button
