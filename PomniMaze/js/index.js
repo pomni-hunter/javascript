@@ -61,3 +61,8 @@ function pomniDoSomething(doThis, times) {
     doItTimesText = times;
     console.log("Command is ready. Hit 'Lets Go!'");
 }
+
+// Let's add some new functions
+
+// What can Pomni do? Let's think.
+
