@@ -11,7 +11,7 @@ let timer = document.querySelector("#timer");
 
 let = doItText = "";
 let = doItTimesText = "";
-let = timerTime = 30;
+let = timerTime = 5;
 let timerId = 0;
 
 timer.textContent = timerTime;
