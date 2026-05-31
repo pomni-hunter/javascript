@@ -94,3 +94,45 @@ function swim() {
 function smash() {
     console.log("SMASH")
 }
+window.startTime = Date.now();
+
+window.checkTime = function() {
+  const seconds = ((Date.now() - window.startTime) / 1000).toFixed(1);
+  console.log(`⏱️ Current Time: ${seconds} seconds! Hurry!`);
+};
+
+window.jump = function(){
+    console.clear();
+    console.log("💎 You leaped clean over the rocks!");    
+    window.checkTime();
+}
+window.kick = function() {
+  // Game/Mascot logic here...
+  console.clear();
+  console.log("💥 CRASH! The brick wall crumbled!");
+  window.checkTime();
+};
+window.swim = function() {
+  // Game/Mascot logic here...
+  console.clear();
+  console.log("🏊 Splish splash! You crossed the water!");
+  window.checkTime();
+};
+window.walk = function() {
+  // Game/Mascot logic here...
+  console.clear();
+  console.log("That's a good walk, my dear Pomni.");
+  window.checkTime();
+};
+window.fly = function() {
+  // Game/Mascot logic here...
+  console.clear();
+  console.log("OK,Pomni, let's fly!");
+  window.checkTime();
+};
+window.smash = function() {
+  // Game/Mascot logic here...
+  console.clear();
+  console.log("Pomni, go smash!");
+  window.checkTime();
+};
