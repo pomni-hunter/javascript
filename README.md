@@ -88,10 +88,13 @@ Let's move as fast as we can!!
   - [x] HTML    - Start Button
   - [x] HTML    - Stop Button
   - [x] HTML    - Next Button
-  - [x] HTML    - CountUp Timer
-  - [?] JS      - CountUp Timer Event Start
-  - [?] JS      - Accumumated Time
-  - [] JS/HTML - Good Job + Finish Time
-  - [] JS/HTML - Go! Indicator (if command is correct)
-  - [] JS      - Make Functions
-  - [] HTML    - (optional) Next Button
+  - [x] HTML    - Stopwatch
+  
+  ----
+###  2026-05-31
+  - [ ] JS      - Stopwatch Timer Event Start
+  - [ ] JS      - Accumumated Time
+  - [ ] JS/HTML - Good Job + Finish Time
+  - [ ] JS/HTML - Go! Indicator (if command is correct)
+  - [ ] JS     - Make Function
+  - [ ] HTML    - (optional) Next Button

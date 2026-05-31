@@ -73,26 +73,24 @@ function pomniDoSomething(doThis, times) {
 //// swim
 //// smash
 
-function walk(){
+function walk() {
     console.log("WALK!")
 }
 
-function jump(){
+function jump() {
     console.log("JUMP!")
 }
 
-function jumpHigh(){
-    console.log("JUMP HIGH!")
-}
+function jumpHigh() {
+    console.log("JUMP HIGH")
+};
 
-function fly(){
+function fly() {
     console.log("FLY!")
 }
-
 function swim() {
     console.log("SWIM!")
 }
-
-function smash(){
-    console.log("SMASH!")
+function smash() {
+    console.log("SMASH")
 }
