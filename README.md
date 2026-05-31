@@ -85,12 +85,16 @@ Once they understand passing data into functions, they can try building:
 
 Let's move as fast as we can!! 
 
-  - [] HTML    - Start Button
-  - [] HTML    - Stop Button
-  - [] HTML    - Next Button
-  - [] HTML    - CountUp Timer
-  - [] JS      - CountUp Timer Event Start
-  - [] JS      - Accumumated Time
-  - [] JS/HTML - Good Job + Finish Time
-  - [] JS/HTML - Go! Indicator (if command is correct)
-  - [] HTML    - (optional) Next Button
+  - [x] HTML    - Start Button
+  - [x] HTML    - Stop Button
+  - [x] HTML    - Next Button
+  - [x] HTML    - Stopwatch
+  
+  ----
+###  2026-05-31
+  - [ ] JS      - Stopwatch Timer Event Start
+  - [ ] JS      - Accumumated Time
+  - [ ] JS/HTML - Good Job + Finish Time
+  - [ ] JS/HTML - Go! Indicator (if command is correct)
+  - [ ] JS     - Make Function
+  - [ ] HTML    - (optional) Next Button
