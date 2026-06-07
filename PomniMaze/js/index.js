@@ -166,6 +166,7 @@ class Item {
     }
 }
 
+<<<<<<< Updated upstream
 class Sword extends Item {
     constructor() {
         super("Mega Sword", "⚔️", 100); // Starts with 100 durability
@@ -194,3 +195,10 @@ class Sword extends Item {
         //     window.smash(); // Automatically triggers the physical action!
         //   }
     }
+=======
+class Sword extends Item{
+    constructor(){
+        super("So strong sword","SSS",1000);
+    }
+}
+>>>>>>> Stashed changes
