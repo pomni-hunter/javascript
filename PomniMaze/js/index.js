@@ -154,15 +154,14 @@ window.win = function () {
 
 // This is a class!!
 class Item {
-    constructor(name, icon) {
+    constructor(name, icon, durability) {
         this.name = name;
         this.icon = icon;
+        this.durability = durability; // Base lifespan
     }
 
-    // Every item has a use function, but it behaves differently for each one!
-    use() {
-        console.clear();
-        console.log(`${this.icon} You used the ${this.name}!`);
-        window.checkTime();
+    // A helper to check if we can still use the item
+    isBroken() {
+        return this.durability <= 0;
     }
 }
