@@ -96,43 +96,73 @@ function smash() {
 }
 window.startTime = Date.now();
 
-window.checkTime = function() {
-  const seconds = ((Date.now() - window.startTime) / 1000).toFixed(1);
-  console.log(`⏱️ Current Time: ${seconds} seconds! Hurry!`);
+window.checkTime = function () {
+    const seconds = ((Date.now() - window.startTime) / 1000).toFixed(1);
+    console.log(`⏱️ Current Time: ${seconds} seconds! Hurry!`);
 };
 
-window.jump = function(){
+window.jump = function () {
     console.clear();
-    console.log("💎 You leaped clean over the rocks!");    
+    console.log("💎 You leaped clean over the rocks!");
     window.checkTime();
 }
-window.kick = function() {
-  // Game/Mascot logic here...
-  console.clear();
-  console.log("💥 CRASH! The brick wall crumbled!");
-  window.checkTime();
+window.kick = function () {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log("💥 CRASH! The brick wall crumbled!");
+    window.checkTime();
 };
-window.swim = function() {
-  // Game/Mascot logic here...
-  console.clear();
-  console.log("🏊 Splish splash! You crossed the water!");
-  window.checkTime();
+window.swim = function () {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log("🏊 Splish splash! You crossed the water!");
+    window.checkTime();
 };
-window.walk = function() {
-  // Game/Mascot logic here...
-  console.clear();
-  console.log("That's a good walk, my dear Pomni.");
-  window.checkTime();
+window.walk = function () {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log("That's a good walk, my dear Pomni.");
+    window.checkTime();
 };
-window.fly = function() {
-  // Game/Mascot logic here...
-  console.clear();
-  console.log("OK,Pomni, let's fly!");
-  window.checkTime();
+window.fly = function () {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log("OK,Pomni, let's fly!");
+    window.checkTime();
 };
-window.smash = function() {
-  // Game/Mascot logic here...
-  console.clear();
-  console.log("Pomni, go smash!");
-  window.checkTime();
+window.smash = function () {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log("Pomni, go smash!");
+    window.checkTime();
 };
+
+// ======= 2026-06-07 ========== //
+// ==== Time for Class!! ======= //
+
+window.win = function () {
+    console.clear();
+    const finalTime = ((Date.now() - window.startTime) / 1000).toFixed(1);
+
+    console.log(`
+  🏆🏆🏆 SPEEDRUN COMPLETE! 🏆🏆🏆
+  ✨ FINAL TIME: ${finalTime} seconds ✨
+  ---------------------------------
+  Take a screenshot and post to GitHub!
+  `);
+};
+
+// This is a class!!
+class Item {
+    constructor(name, icon) {
+        this.name = name;
+        this.icon = icon;
+    }
+
+    // Every item has a use function, but it behaves differently for each one!
+    use() {
+        console.clear();
+        console.log(`${this.icon} You used the ${this.name}!`);
+        window.checkTime();
+    }
+}
