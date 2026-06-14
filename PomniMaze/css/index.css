@@ -95,3 +95,12 @@ p {
 #do-it-times {
     font-size: 4rem;
 }
+
+#stopwatch {
+    padding-left: 8px;
+}
+
+#result {
+    font-size: 36px;
+    padding-left: 8px;
+}

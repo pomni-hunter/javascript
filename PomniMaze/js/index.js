@@ -1,5 +1,14 @@
 console.log("Console is ready");
 
+// =========================================================================
+// POMNI Do Something
+
+// - In the console, tell Pomni what to do. pomniDoSomething(doThis, times)
+// - Hit 'lets go!'
+// - Pomni does the commands before the time runs out 
+// - Hit Caine to stop the clock!
+// =========================================================================
+
 let resetButton = document.querySelector("#reset-button");
 let letsGoButton = document.querySelector("#lets-go-button");
 
@@ -13,6 +22,7 @@ let = doItText = "";
 let = doItTimesText = "";
 let = timerTime = 5;
 let timerId = 0;
+
 
 timer.textContent = timerTime;
 
@@ -28,7 +38,7 @@ resetButton.addEventListener('click', (button) => {
 
 letsGoButton.addEventListener('click', (button) => {
     if (doItText == "" && doItTimesText == "") {
-        console.log("Please add a command");
+        console.log("Please add a 'pomniDoSomething' command!!");
         return;
     }
     doIt.textContent = doItText;
@@ -48,8 +58,13 @@ function startTimer(time) {
         timer.textContent = time--;
         if (time < 0) {
             stopTimer();
+            sorry();
         }
     }, 1000);
+}
+
+function sorry() {
+    doIt.textContent = "💥💥⏱️Time is up⏱️💥💥!!!"
 }
 
 function stopTimer() {
@@ -59,46 +74,51 @@ function stopTimer() {
 function pomniDoSomething(doThis, times) {
     doItText = doThis;
     doItTimesText = times;
-    console.log("Command is ready. Hit 'Lets Go!'");
+
+    console.log(`Command is ready. Hit 'Lets Go! ' you have ${timerTime} seconds`);
 }
 
-// Let's add some new functions
+// =========================================================================
+// END POMNI Do Something
+// =========================================================================
 
-// What can Pomni do? Let's think.
-// Pomni can
-//// walk
-//// jump
-//// jump high
-//// fly
-//// swim
-//// smash
 
-function walk() {
-    console.log("WALK!")
-}
 
-function jump() {
-    console.log("JUMP!")
-}
 
-function jumpHigh() {
-    console.log("JUMP HIGH")
+
+// =========================================================================
+// POMNI Maze. Hurry!!
+// =========================================================================
+
+let mazeTimerId;
+let mazeTime;
+
+const stopWatch = document.querySelector("#stopwatch");
+const result = document.querySelector("#result");
+
+window.go = function () {
+    window.startTime = Date.now();
+    console.log(`⏱️ Start time is ${new Date().toLocaleString()} `);
+    stopWatch.textContent = "0:00";
+    result.textContent = "";
+    mazeTimerId = setInterval(() => {
+        getTime();
+        stopWatch.textContent = mazeTime;
+
+    }, 1000);
 };
 
-function fly() {
-    console.log("FLY!")
+window.stop = function () {
+    clearInterval(mazeTimerId);
+    result.textContent = `🏆 SPEEDRUN COMPLETE! 🏆
+    
+    Time is ${mazeTime}`
 }
-function swim() {
-    console.log("SWIM!")
-}
-function smash() {
-    console.log("SMASH")
-}
-window.startTime = Date.now();
 
 window.checkTime = function () {
-    const seconds = ((Date.now() - window.startTime) / 1000).toFixed(1);
-    console.log(`⏱️ Current Time: ${seconds} seconds! Hurry!`);
+    console.clear();
+    const totalTime = getTime();
+    console.log(`⏱️ Current Time: ${totalTime} seconds! Hurry!`);
 };
 
 window.jump = function () {
@@ -106,6 +126,7 @@ window.jump = function () {
     console.log("💎 You leaped clean over the rocks!");
     window.checkTime();
 }
+
 window.kick = function () {
     // Game/Mascot logic here...
     console.clear();
@@ -124,12 +145,21 @@ window.walk = function () {
     console.log("That's a good walk, my dear Pomni.");
     window.checkTime();
 };
+
+window.turn = function (direction = "Which way?") {
+    // Game/Mascot logic here...
+    console.clear();
+    console.log(`Turn, ${direction}`);
+    window.checkTime();
+};
+
 window.fly = function () {
     // Game/Mascot logic here...
     console.clear();
     console.log("OK,Pomni, let's fly!");
     window.checkTime();
 };
+
 window.smash = function () {
     // Game/Mascot logic here...
     console.clear();
@@ -137,89 +167,116 @@ window.smash = function () {
     window.checkTime();
 };
 
+window.getTime = function () {
+    const totalSeconds = Math.floor((Date.now() - window.startTime) / 1000);
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const totalTime = `${minutes}m ${seconds}s`;
+
+    // set formatted time for maze;
+    mazeTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    return totalTime;
+}
+
+document.querySelector('#start-button').addEventListener('click', () => {
+    window.go();
+})
+
+document.querySelector('#stop-button').addEventListener('click', () => {
+    window.stop();
+})
+
+document.querySelector('#clear-button').addEventListener('click', () => {
+
+    window.stop();
+    result.textContent = "";
+
+    stopWatch.textContent = "0:00"
+})
+
+
+// =========================================================================
+// POMNI Maze. Hurry!!
+// =========================================================================
+
+
+
 // ======= 2026-06-07 ========== //
 // ==== Time for Class!! ======= //
 
-window.win = function () {
-    console.clear();
-    const finalTime = ((Date.now() - window.startTime) / 1000).toFixed(1);
 
-    console.log(`
-  🏆🏆🏆 SPEEDRUN COMPLETE! 🏆🏆🏆
-  ✨ FINAL TIME: ${finalTime} seconds ✨
-  ---------------------------------
-  Take a screenshot and post to GitHub!
-  `);
-};
 
 // This is a class!!
-class Item {
-    constructor(name, icon, durability) {
-        this.name = name;
-        this.icon = icon;
-        this.durability = durability; // Base lifespan
-    }
+// class Item {
+//     constructor(name, icon, durability) {
+//         this.name = name;
+//         this.icon = icon;
+//         this.durability = durability; // Base lifespan
+//     }
 
-    // A helper to check if we can still use the item
-    isBroken() {
-        return this.durability <= 0;
-    }
-}
+//     // A helper to check if we can still use the item
+//     isBroken() {
+//         return this.durability <= 0;
+//     }
+// }
 
-class Sword extends Item {
-    constructor() {
-        super("So strong sword", "SSS", 1000);
-    }
+// class Sword extends Item {
+//     constructor() {
+//         super("So strong sword", "SSS", 1000);
+//     }
 
-    use() {
-        if (this.isBroken()) {
-            console.log("the sword is broken")
-            return;
-        }
+//     use() {
+//         if (this.isBroken()) {
+//             console.log("the sword is broken")
+//             return;
+//         }
 
-        // Calculate random damage to the sword (between 20 and 50)
-        const wearAndTear = Math.floor(Math.random() * 31) + 20;
-        this.durability -= wearAndTear;
+//         // Calculate random damage to the sword (between 20 and 50)
+//         const wearAndTear = Math.floor(Math.random() * 31) + 20;
+//         this.durability -= wearAndTear;
 
-        console.log(`⚔️ SWOOSH! Pomni slashes! (Used up ${wearAndTear} durability)`);
+//         console.log(`⚔️ SWOOSH! Pomni slashes! (Used up ${wearAndTear} durability)`);
 
-        if (this.durability <= 0) {
-            this.durability = 0; // Keep it at 0, don't show negative numbers to kids
-            console.log("💥 CRACK! The sword shattered on that final hit!");
-        } else {
-            console.log(`👍 Sword durability remaining: ${this.durability}`);
-        }
+//         if (this.durability <= 0) {
+//             this.durability = 0; // Keep it at 0, don't show negative numbers to kids
+//             console.log("💥 CRACK! The sword shattered on that final hit!");
+//         } else {
+//             console.log(`👍 Sword durability remaining: ${this.durability}`);
+//         }
 
-        window.smash();
+//         window.smash();
 
-    }
-}
-class Yoyo extends Item {
-    constructor() {
-        super("The greatest purple yoyo", "tgpy", 50000000)
-    }
-    use() {
-        if (this.isBroken()) {
-            console.log(`${this.name} is broken`);
-            return;
-        }
+//     }
+// }
+// class Yoyo extends Item {
+//     constructor() {
+//         super("The greatest purple yoyo", "tgpy", 50000000)
+//     }
+//     use() {
+//         if (this.isBroken()) {
+//             console.log(`${this.name} is broken`);
+//             return;
+//         }
 
-        // Calculate random damage to the sword (between 20 and 50)
-        const wearAndTear = Math.floor(Math.random() * 31) + 20000000;
-        this.durability -= wearAndTear;
+//         // Calculate random damage to the sword (between 20 and 50)
+//         const wearAndTear = Math.floor(Math.random() * 31) + 20000000;
+//         this.durability -= wearAndTear;
 
-        console.log(`Pomni attacks! (Used up ${wearAndTear} durability)`);
+//         console.log(`Pomni attacks! (Used up ${wearAndTear} durability)`);
 
-        if (this.durability <= 0) {
-            this.durability = 0; // Keep it at 0, don't show negative numbers to kids
-            console.log("💥 CRACK! The yoyo broke on that final hit!");
-        } else {
-            console.log(`👍 Durability remaining: ${this.durability}`);
-        }
+//         if (this.durability <= 0) {
+//             this.durability = 0; // Keep it at 0, don't show negative numbers to kids
+//             console.log("💥 CRACK! The yoyo broke on that final hit!");
+//         } else {
+//             console.log(`👍 Durability remaining: ${this.durability}`);
+//         }
 
-        window.smash();
-    }
-}
+//         window.smash();
+//     }
+// }
 
 
 /// POMNI ADVENTURE
@@ -250,10 +307,10 @@ class DungeonMaster {
         }
 
         // Display output optimized for Chrome DevTools emoji rendering
-        console.log("%c💥👾 DUNGEON MASTER EVENT 👾💥", "color: #ff3333; font-weight: bold; font-size: 14px;");
+        console.log('💥👾 DUNGEON MASTER EVENT 👾💥', 'color: #ff3333; font-weight: bold; font-size: 14px;');
         console.log(`--------------------------------------------------`);
         console.log(`%c🚨 LOOK OUT!!!! PARTY IN PERIL!`, "color: #ff3333; font-weight: bold;");
-        console.log(`${enemyEmoji}%cYou have encountered a wild ${type.toUpperCase()}!!!`, "font-weight: bold; font-size: 12px;");
+        console.log(`${enemyEmoji}%c You have encountered a wild ${type.toUpperCase()}!!!`, "font-weight: bold; font-size: 12px;");
         console.log(`--------------------------------------------------`);
         console.log(`%c💔 TOTAL OBJECTIVE HP: ${totalHP} %c(Base: ${baseHP} + Random Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
         console.log(`--------------------------------------------------`);
