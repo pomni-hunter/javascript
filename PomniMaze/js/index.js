@@ -166,13 +166,13 @@ class Item {
     }
 }
 
-class Sword extends Item{
-    constructor(){
-        super("So strong sword","SSS",1000);
+class Sword extends Item {
+    constructor() {
+        super("So strong sword", "SSS", 1000);
     }
 
-    use(){
-        if(this.isBroken()){
+    use() {
+        if (this.isBroken()) {
             console.log("the sword is broken")
             return;
         }
@@ -194,17 +194,17 @@ class Sword extends Item{
 
     }
 }
-class Yoyo extends Item{
-    constructor(){
-        super("The greatest purple yoyo","tgpy",50000000)
+class Yoyo extends Item {
+    constructor() {
+        super("The greatest purple yoyo", "tgpy", 50000000)
     }
-    use(){
-        if(this.isBroken()){
+    use() {
+        if (this.isBroken()) {
             console.log(`${this.name} is broken`);
             return;
         }
 
-         // Calculate random damage to the sword (between 20 and 50)
+        // Calculate random damage to the sword (between 20 and 50)
         const wearAndTear = Math.floor(Math.random() * 31) + 20000000;
         this.durability -= wearAndTear;
 
@@ -217,6 +217,119 @@ class Yoyo extends Item{
             console.log(`👍 Durability remaining: ${this.durability}`);
         }
 
-        window.smash(); 
+        window.smash();
     }
 }
+
+
+/// POMNI ADVENTURE
+
+// =========================================================================
+// 1. THE GAME MASTERY SYSTEM (DM Control Pad)
+// =========================================================================
+class DungeonMaster {
+    constructor() {
+        // Ready for future state tracking (e.g., this.activeMonsters = [])
+    }
+
+    // Base HP is decided by your physical dice roll at the desk
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Brick Wall") {
+        console.clear();
+
+        const dynamicBonus = Math.floor(Math.random() * randomBonus);
+        const totalHP = baseHP + dynamicBonus;
+
+        // Contextual emoji picker based on enemy type
+        let enemyEmoji = "👾";
+        if (type.toLowerCase().includes("brick") || type.toLowerCase().includes("wall")) {
+            enemyEmoji = "🧱";
+        } else if (type.toLowerCase().includes("dragon")) {
+            enemyEmoji = "🐉";
+        } else if (type.toLowerCase().includes("slime")) {
+            enemyEmoji = "💧";
+        }
+
+        // Display output optimized for Chrome DevTools emoji rendering
+        console.log("%c💥👾 DUNGEON MASTER EVENT 👾💥", "color: #ff3333; font-weight: bold; font-size: 14px;");
+        console.log(`--------------------------------------------------`);
+        console.log(`%c🚨 LOOK OUT!!!! PARTY IN PERIL!`, "color: #ff3333; font-weight: bold;");
+        console.log(`${enemyEmoji}%cYou have encountered a wild ${type.toUpperCase()}!!!`, "font-weight: bold; font-size: 12px;");
+        console.log(`--------------------------------------------------`);
+        console.log(`%c💔 TOTAL OBJECTIVE HP: ${totalHP} %c(Base: ${baseHP} + Random Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
+        console.log(`--------------------------------------------------`);
+
+        return {
+            'monster': type,
+            'hp': totalHP
+        };
+    }
+}
+
+// =========================================================================
+// 2. PARENT ITEM CLASS (With Default Parameter)
+// =========================================================================
+class Item {
+    constructor(name, durability, basePower, type = "Weapon") {
+        this.type = type;
+        this.name = name;
+        this.durability = durability;
+        this.basePower = basePower;
+    }
+
+    reduceDurability() {
+        const wear = Math.floor(Math.random() * 3) + 1;
+        this.durability -= wear;
+        if (this.durability < 0) this.durability = 0;
+
+        console.log(
+            `%c📉 The ${this.name} took ${wear} wear damage! (Remaining Durability: ${this.durability})`,
+            "color: #ff6666; font-style: italic;"
+        );
+    }
+
+    calculateDamage() {
+        // Teach about Random HERE!!
+        const randomBonus = Math.floor(Math.random() * 6);
+        return this.basePower + randomBonus;
+        // TODO: allow randomBonus to be a turn by turn input (if the power-up is available) 
+    }
+}
+
+// =========================================================================
+// 3. CHILD WEAPON CLASS (Accepting Custom Name & Dice Multipliers)
+// =========================================================================
+class Sword extends Item {
+    constructor(customName, durabilityDie, powerDie) {
+        const calculatedDurability = durabilityDie * 5;
+        const calculatedPower = powerDie * 3;
+
+        super(customName, calculatedDurability, calculatedPower);
+    }
+
+    slash() {
+        if (this.durability <= 0) {
+            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+            return;
+        }
+
+        const totalDamage = this.calculateDamage();
+
+        console.clear();
+
+        console.log(`%c⚔️ SWISH! You slash with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+
+        console.log(
+            `%c💥 DAMAGE DEALT: ${totalDamage}`,
+            "color: #ffaa00; font-weight: bold; font-size: 12px;",
+            "color: #888; font-style: italic;"
+        );
+
+        console.log("%c--------------------------------------------------", "color: #555;");
+
+        this.reduceDurability();
+    }
+}
+
+// =========================================================================
+// 💥 Fighting System END
+// =========================================================================

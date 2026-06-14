@@ -92,9 +92,22 @@ Let's move as fast as we can!!
   
   ----
 ###  2026-05-31
-  - [ ] JS      - Stopwatch Timer Event Start
-  - [ ] JS      - Accumumated Time
-  - [ ] JS/HTML - Good Job + Finish Time
-  - [ ] JS/HTML - Go! Indicator (if command is correct)
-  - [ ] JS     - Make Function
+  - [x] JS      - Stopwatch Timer Event Start
+  - [x] JS      - Accumumated Time
+  - [x] JS/HTML - Good Job + Finish Time
+  - [x] JS/HTML - Go! Indicator (if command is correct)
+  - [x] JS     - Make Function
   - [ ] HTML    - (optional) Next Button
+
+### 2026-06-14
+
+#### Concepts:
+  - Maths - Math.Random();
+  - Arrays 
+      - Basic
+    - [ ] push
+    - [ ] pop
+    - [ ] index
+    - NOT YET: looping
+      - Advanced?
+        - [ ] itemBag object with built in methods.
