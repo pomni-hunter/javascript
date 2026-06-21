@@ -387,6 +387,95 @@ class Sword extends Item {
     }
 }
 
+class Yoyo extends Item {
+    constructor(customName, durabilityDie, powerDie) {
+        const calculatedDurability = durabilityDie * 8;
+        const calculatedPower = powerDie * 4;
+
+        super(customName, calculatedDurability, calculatedPower);
+    }
+
+    swing() {
+        if (this.durability <= 0) {
+            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+            return;
+        }
+
+        const totalDamage = this.calculateDamage();
+
+        console.clear();
+
+        console.log(`%c⚔️ WHOSH! You swing with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+
+        console.log(
+            `%c💥 DAMAGE DEALT: ${totalDamage}`,
+            "color: #ffaa00; font-weight: bold; font-size: 12px;",
+            "color: #888; font-style: italic;"
+        );
+
+        console.log("%c--------------------------------------------------", "color: #555;");
+
+        this.reduceDurability();
+    }
+    fire(){
+         if (this.durability <= 0) {
+            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+            return;
+        }
+
+        const totalDamage = this.calculateDamage();
+
+        console.clear();
+
+
+        console.log(`%c⚔️ WHOSH! You threw fire with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+
+        console.log(
+            `%c💥 DAMAGE DEALT: ${totalDamage}`,
+            "color: #ffaa00; font-weight: bold; font-size: 12px;",
+            "color: #888; font-style: italic;"
+        );
+
+        console.log("%c--------------------------------------------------", "color: #555;");
+
+        this.reduceDurability();
+
+    }
+}
+
+class Gun extends Item {
+    constructor(customName, durabilityDie, powerDie) {
+        const calculatedDurability = durabilityDie * 5;
+        const calculatedPower = powerDie * 3;
+
+        super(customName, calculatedDurability, calculatedPower);
+    }
+
+    shoot() {
+        if (this.durability <= 0) {
+            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+            return;
+        }
+
+        const totalDamage = this.calculateDamage();
+
+        console.clear();
+
+        console.log(`%c⚔️ BANG! You shot with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+
+        console.log(
+            `%c💥 DAMAGE DEALT: ${totalDamage}`,
+            "color: #ffaa00; font-weight: bold; font-size: 12px;",
+            "color: #888; font-style: italic;"
+        );
+
+        console.log("%c--------------------------------------------------", "color: #555;");
+
+        this.reduceDurability();
+    }
+}
 // =========================================================================
 // 💥 Fighting System END
 // =========================================================================
+
+
