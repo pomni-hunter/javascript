@@ -1,6 +1,8 @@
 
 //.conscept
 // Inside the Sword class action method
+
+
 slash(enemyType = "Normal") {
     let totalDamage = this.calculateDamage();
 
@@ -12,6 +14,8 @@ slash(enemyType = "Normal") {
 
     // Print out the damage using your bulletproof template literal format...
 }
+
+
 
 slash(enemyType = "Normal") {
     if (this.durability <= 0) {
