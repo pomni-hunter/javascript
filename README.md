@@ -105,9 +105,11 @@ Let's move as fast as we can!!
   - Maths - Math.Random();
   - Arrays 
       - Basic
-    - [ ] push
-    - [ ] pop
-    - [ ] index
+    - [x] push
+    - [-] pop
+    - [x] index
     - NOT YET: looping
       - Advanced?
-        - [ ] itemBag object with built in methods.
+        - [-] itemBag object with built in methods.
+        - 
+  Fix / improved game play for the Go Pomni and Pomni Maze games
