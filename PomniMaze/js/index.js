@@ -417,8 +417,8 @@ class Yoyo extends Item {
 
         this.reduceDurability();
     }
-    fire() {
-        if (this.durability <= 0) {
+    fire(){
+         if (this.durability <= 0) {
             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
             return;
         }
@@ -442,6 +442,7 @@ class Yoyo extends Item {
 
     }
 }
+
 
 class Gun extends Item {
     constructor(customName, durabilityDie, powerDie) {
