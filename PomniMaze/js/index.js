@@ -282,52 +282,48 @@ document.querySelector('#clear-button').addEventListener('click', () => {
 /// POMNI ADVENTURE
 
 // =========================================================================
-// 1. THE GAME MASTERY SYSTEM (DM Control Pad)
+// 1. THE DUNGEON MASTER SYSTEM (With Balanced HP & Attribute Spawning)
 // =========================================================================
 class DungeonMaster {
-    constructor() {
-        // Ready for future state tracking (e.g., this.activeMonsters = [])
-    }
+    constructor() { }
 
-    // Base HP is decided by your physical dice roll at the desk
-    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Brick Wall") {
+    // Spawns enemies with scaled HP and a matching weakness tag
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", weakness = "fire") {
         console.clear();
 
+        // INCREMENT 1 FIX: Scale the desk roll by multiplying by 3 so they don't get one-shot!
+        const scaledBase = baseHP * 3;
         const dynamicBonus = Math.floor(Math.random() * randomBonus);
-        const totalHP = baseHP + dynamicBonus;
+        const totalHP = scaledBase + dynamicBonus;
 
-
-        // Contextual emoji picker based on enemy type
+        // Dynamic emoji picker
         let enemyEmoji = "👾";
-        if (type.toLowerCase().includes("brick") || type.toLowerCase().includes("wall")) {
-            enemyEmoji = "🧱";
-        } else if (type.toLowerCase().includes("dragon")) {
-            enemyEmoji = "🐉";
-        } else if (type.toLowerCase().includes("slime")) {
-            enemyEmoji = "💧";
-        } else if (type.toLowerCase().includes("ghost")) {
-            enemyEmoji = "👻"
-        } else if (type.toLowerCase().includes("evil eye")) {
-            enemyEmoji = "👁️"
-        } else if (type.toLowerCase().includes("tree")) {
-            enemyEmoji = "🌲"
-        } else if (type.toLowerCase().includes("trex")) {
-            enemyEmoji = "🌲"
-        }
+        const upperType = type.toUpperCase();
+        if (upperType.includes("WALL") || upperType.includes("BRICK")) enemyEmoji = "🧱";
+        else if (upperType.includes("DRAGON")) enemyEmoji = "🐉";
+        else if (upperType.includes("SLIME")) enemyEmoji = "💧";
+        else if (upperType.includes("GHOST")) enemyEmoji = "👻";
+        else if (upperType.includes("EYE")) enemyEmoji = "👁️";
+        else if (upperType.includes("CAT")) enemyEmoji = "🐱";
 
-        // Display output optimized for Chrome DevTools emoji rendering
-        console.log('💥👾 DUNGEON MASTER EVENT 👾💥', 'color: #ff3333; font-weight: bold; font-size: 14px;');
-        console.log(`--------------------------------------------------`);
-        console.log(`%c🚨 LOOK OUT!!!! PARTY IN PERIL!`, "color: #ff3333; font-weight: bold;");
-        console.log(`${enemyEmoji}%c You have encountered a wild ${type.toUpperCase()}!!!`, "font-weight: bold; font-size: 12px;");
-        console.log(`--------------------------------------------------`);
-        console.log(`%c💔 TOTAL OBJECTIVE HP: ${totalHP} %c(Base: ${baseHP} + Random Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
-        console.log(`--------------------------------------------------`);
-
-        return {
-            'monster': type,
-            'hp': totalHP
+        // The unified enemy data package
+        const enemyProfile = {
+            name: type,
+            hp: totalHP,
+            weakness: weakness.toLowerCase()
         };
+
+        // Your bulletproof sweet-spot console format
+        console.log("%c💥👾 DUNGEON MASTER EVENT 👾💥", "color: #ff3333; font-weight: bold; font-size: 14px;");
+        console.log(`--------------------------------------------------`);
+        console.log(`%c🚨 AMBUSH ALERT! PARTY IN PERIL!`, "color: #ff3333; font-weight: bold;");
+        console.log(`${enemyEmoji}%cYou are facing: ${upperType}!!!`, "font-weight: bold; font-size: 12px;");
+        console.log(`--------------------------------------------------`);
+        console.log(`%c💔 TARGET HP: ${enemyProfile.hp} %c(Scaled Base: ${scaledBase} + Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
+        console.log(`%c🏷️ HIDDEN WEAKNESS TYPE: %c${enemyProfile.weakness.toUpperCase()}`, "color: #fff;", "color: #ffaa00; font-weight: bold;");
+        console.log(`--------------------------------------------------`);
+
+        return enemyProfile;
     }
 }
 
@@ -335,12 +331,13 @@ class DungeonMaster {
 // 2. PARENT ITEM CLASS (With Default Parameter)
 // =========================================================================
 class Item {
-    constructor(name, durability, basePower, type = "Weapon") {
-        this.type = type;
+     constructor(name, durability, basePower, element = "physical") {
         this.name = name;
         this.durability = durability;
         this.basePower = basePower;
+        this.element = element.toLowerCase(); // e.g. "fire", "ice", "physical", "fish"
     }
+
 
     reduceDurability() {
         const wear = Math.floor(Math.random() * 3) + 1;
@@ -365,31 +362,34 @@ class Item {
 // 3. CHILD WEAPON CLASS (Accepting Custom Name & Dice Multipliers)
 // =========================================================================
 class Sword extends Item {
-    constructor(customName, durabilityDie, powerDie) {
-        const calculatedDurability = durabilityDie * 5;
-        const calculatedPower = powerDie * 3;
-
-        super(customName, calculatedDurability, calculatedPower);
+    
+        constructor(customName, durabilityDie, powerDie, element = "physical") {
+        // Multiplies raw dice properties and passes element to parent constructor
+        super(customName, durabilityDie * 5, powerDie * 3, element);
     }
 
-    slash() {
+    slash(enemy) {
         if (this.durability <= 0) {
             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
             return;
         }
 
-        const totalDamage = this.calculateDamage();
+         let finalDamage = this.calculateDamage();
+        let effectivenessMessage = " ✨ (NORMAL HIT!)";
+        let effectiveStyle = "color: #888; font-style: italic;";
+
+        // ── THE UNIVERSAL ENGINE MATCHMAKER ──
+        if (enemy && enemy.weakness === this.element) {
+            finalDamage = finalDamage * 2; // Double damage buff!
+            effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
+            effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
+        }
+        const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
 
         console.clear();
 
-        console.log(`%c⚔️ SWISH! You slash with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
-
-        console.log(
-            `%c💥 DAMAGE DEALT: ${totalDamage}`,
-            "color: #ffaa00; font-weight: bold; font-size: 12px;",
-            "color: #888; font-style: italic;"
-        );
-
+        console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+        console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
         console.log("%c--------------------------------------------------", "color: #555;");
 
         this.reduceDurability();

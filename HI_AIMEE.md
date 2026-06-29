@@ -24,4 +24,4 @@ It was very interesting.
 #### 2026-06-29
 
 What is strong against 🔥Fire🔥?
-
+A water gun.
