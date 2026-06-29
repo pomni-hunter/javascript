@@ -296,6 +296,7 @@ class DungeonMaster {
         const dynamicBonus = Math.floor(Math.random() * randomBonus);
         const totalHP = baseHP + dynamicBonus;
 
+
         // Contextual emoji picker based on enemy type
         let enemyEmoji = "👾";
         if (type.toLowerCase().includes("brick") || type.toLowerCase().includes("wall")) {
@@ -304,6 +305,14 @@ class DungeonMaster {
             enemyEmoji = "🐉";
         } else if (type.toLowerCase().includes("slime")) {
             enemyEmoji = "💧";
+        } else if (type.toLowerCase().includes("ghost")) {
+            enemyEmoji = "👻"
+        } else if (type.toLowerCase().includes("evil eye")) {
+            enemyEmoji = "👁️"
+        } else if (type.toLowerCase().includes("tree")) {
+            enemyEmoji = "🌲"
+        } else if (type.toLowerCase().includes("trex")) {
+            enemyEmoji = "🌲"
         }
 
         // Display output optimized for Chrome DevTools emoji rendering
@@ -417,8 +426,8 @@ class Yoyo extends Item {
 
         this.reduceDurability();
     }
-    fire(){
-         if (this.durability <= 0) {
+    fire() {
+        if (this.durability <= 0) {
             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
             return;
         }
