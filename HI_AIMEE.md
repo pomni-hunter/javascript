@@ -36,4 +36,4 @@ It was very GOOD!!!
 
 How was the musical today? 
 
-> It was wonderful! The two girl wearing a blue dresses is my fan!
+> It was wonderful! The two girls wearing a blue dresses is my fan!
