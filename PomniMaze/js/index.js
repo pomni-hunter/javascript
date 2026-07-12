@@ -311,7 +311,7 @@ class DungeonMaster {
             name: type,
             hp: totalHP,
             weakness: weakness.toLowerCase(),
-            //2026-07-12 isAnalysed: false
+            isAnalysed: false
         };
 
         // Your bulletproof sweet-spot console format
@@ -321,8 +321,8 @@ class DungeonMaster {
         console.log(`${enemyEmoji}%cYou are facing: ${upperType}!!!`, "font-weight: bold; font-size: 12px;");
         console.log(`--------------------------------------------------`);
         console.log(`%c💔 TARGET HP: ${enemyProfile.hp} %c(Scaled Base: ${scaledBase} + Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
-        console.log(`%c🏷️ HIDDEN WEAKNESS TYPE: %c${enemyProfile.weakness.toUpperCase()}`, "color: #fff;", "color: #ffaa00; font-weight: bold;");
-        //2026-07-12 console.log(`%c🏷️ WEAKNESS: %c❓ UNKNOWN (Use .analyze() to reveal!)`, "color: #fff;", "color: #ffcc00; font-style: italic;");
+        //console.log(`%c🏷️ HIDDEN WEAKNESS TYPE: %c${enemyProfile.weakness.toUpperCase()}`, "color: #fff;", "color: #ffaa00; font-weight: bold;");
+        console.log(`%c🏷️ WEAKNESS: %c❓ UNKNOWN (Use .analyze() to reveal!)`, "color: #fff;", "color: #ffcc00; font-style: italic;");
         console.log(`--------------------------------------------------`);
 
         return enemyProfile;
@@ -339,18 +339,46 @@ class Item {
         this.basePower = basePower;
         this.element = element.toLowerCase(); // e.g. "fire", "ice", "water", "fish"
     }
+    scout(enemy) {
+        // Safety Check: Make sure the DM actually spawned something first!
+        if (!enemy) {
+            console.log("❌ %cSYSTEM ERROR: No target found in this room to analyze!", "color: #ff3333; font-weight: bold;");
+            return;
+        }
 
+        // 1. Flip the hidden data flag on the monster to true
+        enemy.isAnalyzed = true;
 
-    reduceDurability() {
-        const wear = Math.floor(Math.random() * 3) + 1;
-        this.durability -= wear;
-        if (this.durability < 0) this.durability = 0;
+        console.clear();
 
-        console.log(
-            `%c📉 The ${this.name} took ${wear} wear damage! (Remaining Durability: ${this.durability})`,
-            "color: #ff6666; font-style: italic;"
-        );
+        // 2. Pop the tactical tactical scanning dashboard
+        console.log(`🔍%c SCANNING TARGET WITH ${this.name.toUpperCase()}...`, "font-weight: bold; color: #a370f7; font-size: 13px;");
+        console.log("%c==================================================", "color: #a370f7;");
+        console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #fff;");
+        console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #f51be3;");
+        console.log(`🎯 WEAKNESS:    %c${enemy.weakness.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
+        console.log("%c==================================================", "color: #a370f7;");
     }
+    reduceDurability(enemy) {
+    // 1. Establish the normal base wear (1 to 3 damage)
+    let wear = Math.floor(Math.random() * 3) + 1;
+    let message = "";
+
+    // 2. ── THE RESISTANCE PENALTY CHECK ──
+    // Let's check if the enemy exists and has an innate strength against our element
+    if (enemy && enemy.strength === this.element) {
+        wear += 4; // 👈 Simple flat penalty modifier! +4 extra durability loss
+        message = " 💥 CLANG! The monster is resistant! Extra wear penalty applied!";
+    }
+
+    // 3. Apply the final damage to the weapon
+    this.durability -= wear;
+    if (this.durability < 0) this.durability = 0;
+
+    // 4. Print the result using your sweet-spot console layout
+    console.log(`📉%cThe ${this.name} took ${wear} wear damage! (Remaining Durability: ${this.durability})${message}`, "color: #ff6666; font-style: italic;");
+}
+    
 
     calculateDamage() {
         // Teach about Random HERE!!
