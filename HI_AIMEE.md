@@ -31,3 +31,9 @@ A water gun.
 
 How was your eggplant?
 It was very GOOD!!!
+
+#### 2026-07-12
+
+How was the musical today? 
+
+> 

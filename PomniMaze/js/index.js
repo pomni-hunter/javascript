@@ -310,7 +310,8 @@ class DungeonMaster {
         const enemyProfile = {
             name: type,
             hp: totalHP,
-            weakness: weakness.toLowerCase()
+            weakness: weakness.toLowerCase(),
+            //2026-07-12 isAnalysed: false
         };
 
         // Your bulletproof sweet-spot console format
@@ -321,6 +322,7 @@ class DungeonMaster {
         console.log(`--------------------------------------------------`);
         console.log(`%c💔 TARGET HP: ${enemyProfile.hp} %c(Scaled Base: ${scaledBase} + Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
         console.log(`%c🏷️ HIDDEN WEAKNESS TYPE: %c${enemyProfile.weakness.toUpperCase()}`, "color: #fff;", "color: #ffaa00; font-weight: bold;");
+        //2026-07-12 console.log(`%c🏷️ WEAKNESS: %c❓ UNKNOWN (Use .analyze() to reveal!)`, "color: #fff;", "color: #ffcc00; font-style: italic;");
         console.log(`--------------------------------------------------`);
 
         return enemyProfile;
@@ -331,7 +333,7 @@ class DungeonMaster {
 // 2. PARENT ITEM CLASS (With Default Parameter)
 // =========================================================================
 class Item {
-     constructor(name, durability, basePower, element = "physical") {
+    constructor(name, durability, basePower, element = "physical") {
         this.name = name;
         this.durability = durability;
         this.basePower = basePower;
@@ -362,8 +364,8 @@ class Item {
 // 3. CHILD WEAPON CLASS (Accepting Custom Name & Dice Multipliers)
 // =========================================================================
 class Sword extends Item {
-    
-        constructor(customName, durabilityDie, powerDie, element = "physical") {
+
+    constructor(customName, durabilityDie, powerDie, element = "physical") {
         // Multiplies raw dice properties and passes element to parent constructor
         super(customName, durabilityDie * 5, powerDie * 3, element);
     }
@@ -397,7 +399,7 @@ class Sword extends Item {
 }
 
 class Yoyo extends Item {
-     constructor(customName, durabilityDie, powerDie, element = "physical") {
+    constructor(customName, durabilityDie, powerDie, element = "physical") {
         // Multiplies raw dice properties and passes element to parent constructor
         super(customName, durabilityDie * 5, powerDie * 3, element);
     }

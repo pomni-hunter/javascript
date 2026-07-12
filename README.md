@@ -113,3 +113,13 @@ Let's move as fast as we can!!
         - [-] itemBag object with built in methods.
         - 
   Fix / improved game play for the Go Pomni and Pomni Maze games
+
+
+  🎮 The New Gameplay Loop
+1. The DM Ambush: You spawn a monster at your desk, but its weakness prints out as ❓ UNKNOWN.
+
+2. The Dilemma: If she attacks blindly, she risks hitting a resistance or missing a critical multiplier.
+
+3. The Scout Phase: She runs heroSword.analyze(currentTarget) or a standalone inspect(currentTarget) command.
+
+4. The Reveal: A beautiful, styled dashboard pops up in Chrome revealing the monster’s exact traits, allowing her to pick the perfect weapon from her bag.
