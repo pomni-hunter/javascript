@@ -288,7 +288,7 @@ class DungeonMaster {
     constructor() { }
 
     // Spawns enemies with scaled HP and a matching weakness tag
-    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", weakness = "fire") {
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", weakness = "fire",strength = "physical") {
         console.clear();
 
         // INCREMENT 1 FIX: Scale the desk roll by multiplying by 3 so they don't get one-shot!
@@ -311,6 +311,7 @@ class DungeonMaster {
             name: type,
             hp: totalHP,
             weakness: weakness.toLowerCase(),
+            strength:strength.toLowerCase(),
             isAnalysed: false
         };
 
