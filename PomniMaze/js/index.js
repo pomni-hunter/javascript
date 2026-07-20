@@ -1,5 +1,11 @@
 console.log("Console is ready");
-
+const ELEMENT_MATRIX = {
+    fire: "ice",
+    ice: "fire",
+    earth: "physical",
+    ghost: "magic",
+    cat: "fish"
+}
 // =========================================================================
 // POMNI Do Something
 
@@ -288,14 +294,15 @@ class DungeonMaster {
     constructor() { }
 
     // Spawns enemies with scaled HP and a matching weakness tag
-    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", weakness = "fire",strength = "physical") {
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime",element = "fire") {
         console.clear();
 
         // INCREMENT 1 FIX: Scale the desk roll by multiplying by 3 so they don't get one-shot!
         const scaledBase = baseHP * 3;
         const dynamicBonus = Math.floor(Math.random() * randomBonus);
         const totalHP = scaledBase + dynamicBonus;
-
+        const weakness = ELEMENT_MATRIX[element.toLowerCase()] || "physical";
+        const strength = Object.keys(ELEMENT_MATRIX).find(key => ELEMENT_MATRIX[key] === element.toLowerCase()) || "none";
         // Dynamic emoji picker
         let enemyEmoji = "👾";
         const upperType = type.toUpperCase();
@@ -355,9 +362,10 @@ class Item {
         // 2. Pop the tactical tactical scanning dashboard
         console.log(`🔍%c SCANNING TARGET WITH ${this.name.toUpperCase()}...`, "font-weight: bold; color: #a370f7; font-size: 13px;");
         console.log("%c==================================================", "color: #a370f7;");
-        console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #fff;");
+        console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #050505;");
         console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #f51be3;");
         console.log(`🎯 WEAKNESS:    %c${enemy.weakness.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
+        console.log(`🎯 STRENGTH:    %c${enemy.strength.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
         console.log("%c==================================================", "color: #a370f7;");
     }
     reduceDurability(enemy) {
