@@ -37,3 +37,9 @@ It was very GOOD!!!
 How was the musical today? 
 
 > It was wonderful! The two girls wearing a blue dresses is my fan!
+
+#### 2026-07-20
+
+What are your favorite fireworks?
+
+>
