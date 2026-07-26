@@ -23,13 +23,17 @@
     // }
   - put in Item bag
 
-[] Make a matrix of Elements
+[x] Make a matrix of Elements
 
-[] Add .analyze() Method: Implement information hiding on Item to reveal hidden enemy stats and weakness/strength tags.
+[x] Add .analyze() Method: Implement information hiding on Item to reveal hidden enemy stats and weakness/strength tags.
 
-[] Wear Penalty on Resistance: Update reduceDurability(enemy) so attacking a monster's strength applies an extra wear penalty (wear + 4).
+[x] Wear Penalty on Resistance: Update reduceDurability(enemy) so attacking a monster's strength applies an extra wear penalty (wear + 4).
+
+[] fix ELEMENT_MATRIX
 
 [] drop Function
+
+[] introduction into localStorage 
 
 [] d18 Stat Rebalancing: Implement the safety floor formulas for durability (10 + (d18 * 2)) and base power (3 + Math.floor(d18 / 2)).
 
