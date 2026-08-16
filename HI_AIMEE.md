@@ -24,13 +24,13 @@ It was very interesting.
 #### 2026-06-29
 
 What is strong against 🔥Fire🔥?
-A water gun.
+> A water gun.
 
 
 #### 2026-07-5
 
 How was your eggplant?
-It was very GOOD!!!
+> It was very GOOD!!!
 
 #### 2026-07-12
 
@@ -42,11 +42,17 @@ How was the musical today?
 
 What are your favorite fireworks?
 
->love heart one.
+> love heart one.
 
 #### 2026-07-26
 
 1. What day is it today?
 2. How old is Mark?
+
+>
+
+#### 2026-08-16
+
+How was your field trip?
 
 >
