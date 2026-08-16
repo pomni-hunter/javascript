@@ -1,11 +1,19 @@
 console.log("Console is ready");
-const ELEMENT_MATRIX = {
-    fire: "ice",
-    ice: "fire",
-    earth: "physical",
-    ghost: "magic",
-    cat: "fish"
-}
+ const ELEMENT_MATRIX = {
+    // Key (Monster/Weapon) : Value (Its Weakness / What Beats It)
+    fire: "water",     // Water beats Fire
+    ice: "fire",       // Fire beats Ice
+    water: "ice",      // Ice beats Water
+    ghost: "magic",    // Magic beats Ghost
+    cat: "fish"        // Fish beats Cat
+};
+const MONSTER_LOOT_TABLE = {
+    slime: 5,
+    eye: 12,
+    dragon: 50,
+    ghost: 20,
+    cat: 100 // Rare boss reward!
+};
 // =========================================================================
 // POMNI Do Something
 
@@ -424,7 +432,41 @@ class Sword extends Item {
             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
         }
         const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
+enemy.hp -= calculatedDamage;
 
+if (enemy.hp <= 0) {
+    enemy.hp = 0;
+    console.log(`☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`, "color: #ff3333; font-weight: bold;");
+
+    // 1. Look up max coins from dictionary (default to 5 if not listed)
+    const monsterKey = enemy.name.toLowerCase();
+    const maxCoins = MONSTER_LOOT_TABLE[monsterKey] || 5;
+
+    // 2. Roll random coins from 1 to MAX
+    const coinsDropped = Math.floor(Math.random() * maxCoins) + 1;
+    console.log(`🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`, "color: #ffcc00; font-weight: bold;");
+
+    // 3. Save to localStorage
+    addCoinsToStorage(coinsDropped);
+} else {
+    console.log(`❤️ ${enemy.name} HP remaining: ${enemy.hp}`);
+}
+
+
+// Helper function to handle local persistence
+function addCoinsToStorage(amount) {
+    // 1. Read existing coins (convert from string to number, default to 0 if null)
+    let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
+
+    // 2. Add new coins
+    currentCoins += amount;
+
+    // 3. Save back to localStorage
+    localStorage.setItem("heroCoins", currentCoins);
+
+    // 4. Display total purse
+    console.log(`💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`, "color: #ffcc00; font-style: italic;");
+}
         console.clear();
 
         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
