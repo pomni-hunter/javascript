@@ -1,5 +1,5 @@
 console.log("Console is ready");
- const ELEMENT_MATRIX = {
+const ELEMENT_MATRIX = {
     // Key (Monster/Weapon) : Value (Its Weakness / What Beats It)
     fire: "water",     // Water beats Fire
     ice: "fire",       // Fire beats Ice
@@ -302,7 +302,7 @@ class DungeonMaster {
     constructor() { }
 
     // Spawns enemies with scaled HP and a matching weakness tag
-    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime",element = "fire") {
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", element = "fire") {
         console.clear();
 
         // INCREMENT 1 FIX: Scale the desk roll by multiplying by 3 so they don't get one-shot!
@@ -326,7 +326,7 @@ class DungeonMaster {
             name: type,
             hp: totalHP,
             weakness: weakness.toLowerCase(),
-            strength:strength.toLowerCase(),
+            strength: strength.toLowerCase(),
             isAnalysed: false
         };
 
@@ -416,6 +416,7 @@ class Sword extends Item {
     }
 
     slash(enemy) {
+        console.clear();
         if (this.durability <= 0) {
             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
             return;
@@ -424,6 +425,15 @@ class Sword extends Item {
         let finalDamage = this.calculateDamage();
         let effectivenessMessage = " ✨ (NORMAL HIT!)";
         let effectiveStyle = "color: #888; font-style: italic;";
+        let defeatedMessage = "";
+        let defeatedStyle = "color: #ff3333; font-weight: bold;";
+        let dropMessage = "";
+        let dropMessageStyle = "color: #ffcc00; font-weight: bold;"
+        let purseCountMessage = "";
+        let purseCountMessageStyle = "color: #ffcc00; font-style: italic;";
+        let remainingHpMessage = "";
+
+        let isDefeated = false;
 
         // ── THE UNIVERSAL ENGINE MATCHMAKER ──
         if (enemy && enemy.weakness === this.element) {
@@ -432,47 +442,58 @@ class Sword extends Item {
             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
         }
         const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
-enemy.hp -= calculatedDamage;
+        enemy.hp -= finalDamage;
 
-if (enemy.hp <= 0) {
-    enemy.hp = 0;
-    console.log(`☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`, "color: #ff3333; font-weight: bold;");
+        if (enemy.hp <= 0) {
+            isDefeated = true;
+            enemy.hp = 0;
+            defeatedMessage = `☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`;
 
-    // 1. Look up max coins from dictionary (default to 5 if not listed)
-    const monsterKey = enemy.name.toLowerCase();
-    const maxCoins = MONSTER_LOOT_TABLE[monsterKey] || 5;
+            // 1. Look up max coins from dictionary (default to 5 if not listed)
+            const monsterKey = enemy.name.toLowerCase();
+            const maxCoins = MONSTER_LOOT_TABLE[monsterKey] || 5;
 
-    // 2. Roll random coins from 1 to MAX
-    const coinsDropped = Math.floor(Math.random() * maxCoins) + 1;
-    console.log(`🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`, "color: #ffcc00; font-weight: bold;");
+            // 2. Roll random coins from 1 to MAX
+            const coinsDropped = Math.floor(Math.random() * maxCoins) + 1;
+            dropMessage = `🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`;
 
-    // 3. Save to localStorage
-    addCoinsToStorage(coinsDropped);
-} else {
-    console.log(`❤️ ${enemy.name} HP remaining: ${enemy.hp}`);
-}
+            // 3. Save to localStorage
+            var currentCoins = addCoinsToStorage(coinsDropped);
+
+            // 4. Display total purse
+            purseCountMessage = `💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`;
+
+        } else {
+            remainingHpMessage = `❤️ ${enemy.name} HP remaining: ${enemy.hp}`;
+        }
 
 
-// Helper function to handle local persistence
-function addCoinsToStorage(amount) {
-    // 1. Read existing coins (convert from string to number, default to 0 if null)
-    let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
+        // Helper function to handle local persistence
+        function addCoinsToStorage(amount) {
+            // 1. Read existing coins (convert from string to number, default to 0 if null)
+            let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
 
-    // 2. Add new coins
-    currentCoins += amount;
+            // 2. Add new coins
+            currentCoins += amount;
 
-    // 3. Save back to localStorage
-    localStorage.setItem("heroCoins", currentCoins);
+            // 3. Save back to localStorage
+            localStorage.setItem("heroCoins", currentCoins);
 
-    // 4. Display total purse
-    console.log(`💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`, "color: #ffcc00; font-style: italic;");
-}
-        console.clear();
+            return currentCoins;
+        }
+
+
 
         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
         console.log("%c--------------------------------------------------", "color: #555;");
-
+        if (isDefeated) {
+            console.log(defeatedMessage, defeatedStyle);
+            console.log(dropMessage, dropMessageStyle);
+            console.log(purseCountMessage, purseCountMessageStyle);
+        } else {
+            console.log(remainingHpMessage);
+        }
         this.reduceDurability();
     }
 }

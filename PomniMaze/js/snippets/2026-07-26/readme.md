@@ -29,12 +29,19 @@
 
 [x] Wear Penalty on Resistance: Update reduceDurability(enemy) so attacking a monster's strength applies an extra wear penalty (wear + 4).
 
-[] fix ELEMENT_MATRIX
+[x] fix ELEMENT_MATRIX
 
-[] drop Function
+[x] drop Function
 
-[] introduction into localStorage 
+[x] introduction into localStorage 
 
 [] d18 Stat Rebalancing: Implement the safety floor formulas for durability (10 + (d18 * 2)) and base power (3 + Math.floor(d18 / 2)).
 
 [] walking with random encounters / item pickups
+
+
+() {} []
+
+= == < >
+
+<=
