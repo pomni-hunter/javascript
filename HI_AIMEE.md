@@ -55,4 +55,4 @@ What are your favorite fireworks?
 
 How was your field trip?
 
->
+>It was fun. I made new friends again!
