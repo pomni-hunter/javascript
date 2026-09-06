@@ -56,3 +56,11 @@ What are your favorite fireworks?
 How was your field trip?
 
 >It was fun. I made new friends again!
+
+
+#### 2026-09-06
+
+Do you like your new Woody and Jessie? 
+Today they will join up!
+
+> 

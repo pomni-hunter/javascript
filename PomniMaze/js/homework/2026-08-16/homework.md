@@ -1,6 +1,6 @@
 #### Homework 1
 
-I fixed our code so that Pomni will earn "heroCoins" when she defeats an enemy. Please test
+I fixed our code so that Pomni will earn "heroCoins" when she defeats an enemy. Please test it.
 1. create a sword, as you like (use a die or choose your own values)
 2. create JAX (new DungeonMaster class)
 3. have JAX spawn and enemy (spawnEnemy function) you can choose the HP, Bonus, Type (slime, eye, dragon, cat etc.) and element from (ELEMENT_MATRIX) or use a die to decide
