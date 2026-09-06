@@ -63,4 +63,4 @@ How was your field trip?
 Do you like your new Woody and Jessie? 
 Today they will join up!
 
-> 
+> I like them.
