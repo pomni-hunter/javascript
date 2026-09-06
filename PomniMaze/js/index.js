@@ -14,6 +14,12 @@ const MONSTER_LOOT_TABLE = {
     ghost: 20,
     cat: 100 // Rare boss reward!
 };
+const JOBS = {
+jester:"jester",
+dm:"dm",
+cbs:"cowboy sheriff",
+cgs:"cowgirl sheriff"
+};
 // =========================================================================
 // POMNI Do Something
 
@@ -591,3 +597,25 @@ class Gun extends Item {
 // =========================================================================
 
 
+// 2. Parent Character Class
+class Character {
+    constructor(name, job) {
+        this.name = name;
+        this.job = job;
+        this.currentItem = null;   // Reserved for future items
+        this.currentWeapon = null; // Will hold a Weapon instance
+    }
+
+    // Refactored from loose window-level functions into class methods
+    walk() {
+        console.log(`${this.name} is walking.`);
+    }
+
+    run() {
+        console.log(`${this.name} is running!`);
+    }
+
+    jump() {
+        console.log(`${this.name} jumped high!`);
+    }
+}
