@@ -69,4 +69,4 @@ Today they will join up!
 
 How was your day today?
 
-> 
+>  Great. Today was my grandfather's birthday!
