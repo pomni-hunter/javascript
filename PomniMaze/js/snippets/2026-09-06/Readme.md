@@ -1,7 +1,7 @@
-[] create Jobs key value constant
-[] create character parent class
-[] move windows level function into parent class
-[] create characters and move them into local storage
+[x] create Jobs key value constant
+[x] create character parent class
+[x] move windows level function into parent class
+[x] create characters and move them into local storage
 [] test if we can successfully battle using the character class.
 
 ----- Nice to have -----
