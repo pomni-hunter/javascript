@@ -75,4 +75,4 @@ How was your day today?
 
 did you have fun harvesting rice
 
-> 
+> It was very hard and I was tired.
