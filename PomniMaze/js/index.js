@@ -15,11 +15,13 @@ const MONSTER_LOOT_TABLE = {
     cat: 100 // Rare boss reward!
 };
 const JOBS = {
-jester:"jester",
-dm:"dm",
-cbs:"cowboy sheriff",
-cgs:"cowgirl sheriff"
+    jester: "jester",
+    dm: "dm",
+    cbs: "cowboy sheriff",
+    cgs: "cowgirl sheriff"
 };
+
+
 // =========================================================================
 // POMNI Do Something
 
@@ -328,12 +330,13 @@ class DungeonMaster {
         else if (upperType.includes("CAT")) enemyEmoji = "🐱";
 
         // The unified enemy data package
+        // 2026-09-20 create new Enemy class
         const enemyProfile = {
             name: type,
             hp: totalHP,
             weakness: weakness.toLowerCase(),
             strength: strength.toLowerCase(),
-            isAnalysed: false
+            isAnalysed: false,
         };
 
         // Your bulletproof sweet-spot console format
@@ -343,7 +346,6 @@ class DungeonMaster {
         console.log(`${enemyEmoji}%cYou are facing: ${upperType}!!!`, "font-weight: bold; font-size: 12px;");
         console.log(`--------------------------------------------------`);
         console.log(`%c💔 TARGET HP: ${enemyProfile.hp} %c(Scaled Base: ${scaledBase} + Variance: +${dynamicBonus})`, "color: #00ff66; font-weight: bold; font-size: 12px;", "color: #888; font-style: italic;");
-        //console.log(`%c🏷️ HIDDEN WEAKNESS TYPE: %c${enemyProfile.weakness.toUpperCase()}`, "color: #fff;", "color: #ffaa00; font-weight: bold;");
         console.log(`%c🏷️ WEAKNESS: %c❓ UNKNOWN (Use .analyze() to reveal!)`, "color: #fff;", "color: #ffcc00; font-style: italic;");
         console.log(`--------------------------------------------------`);
 
