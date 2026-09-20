@@ -20,7 +20,13 @@ const JOBS = {
     cbs: "cowboy sheriff",
     cgs: "cowgirl sheriff"
 };
-
+const ITEM_CATALOG = {
+  APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
+  POTION: { name: "Health Potion", type: "Heal", power: 30 },
+  SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
+  TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
+  ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
+};
 
 // =========================================================================
 // POMNI Do Something
@@ -310,7 +316,7 @@ class DungeonMaster {
     constructor() { }
 
     // Spawns enemies with scaled HP and a matching weakness tag
-    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", element = "fire") {
+    spawnEnemy(baseHP = 0, randomBonus = 6, type = "Slime", element = "fire", attackPower = 30) {
         console.clear();
 
         // INCREMENT 1 FIX: Scale the desk roll by multiplying by 3 so they don't get one-shot!
@@ -331,13 +337,15 @@ class DungeonMaster {
 
         // The unified enemy data package
         // 2026-09-20 create new Enemy class
-        const enemyProfile = {
-            name: type,
-            hp: totalHP,
-            weakness: weakness.toLowerCase(),
-            strength: strength.toLowerCase(),
-            isAnalysed: false,
-        };
+        // const enemyProfile = {
+        //     name: type,
+        //     hp: totalHP,
+        //     weakness: weakness.toLowerCase(),
+        //     strength: strength.toLowerCase(),
+        //     isAnalysed: false,
+        // };
+
+        const enemyProfile = new Enemy(type, attackPower, baseHP, weakness, strength);
 
         // Your bulletproof sweet-spot console format
         console.log("%c💥👾 DUNGEON MASTER EVENT 👾💥", "color: #ff3333; font-weight: bold; font-size: 14px;");
@@ -606,6 +614,8 @@ class Character {
         this.job = job;
         this.currentItem = null;   // Reserved for future items
         this.currentWeapon = null; // Will hold a Weapon instance
+        this.currentHp = 100;
+        this.maxHp = 100;
     }
 
     // Refactored from loose window-level functions into class methods
@@ -620,4 +630,53 @@ class Character {
     jump() {
         console.log(`${this.name} jumped high!`);
     }
+
+    useItem(targetCharacter = this) {
+        if (!this.currentItem) {
+            console.log(`${this.name} has no item to use!`);
+            return;
+        }
+
+        const item = this.currentItem;
+        // Healing Item Logic
+        if (item.type === "Heal") {
+            const oldHp = targetCharacter.currentHp;
+            targetCharacter.currentHp = Math.min(
+            targetCharacter.maxHp,
+            targetCharacter.currentHp + item.power
+            );
+
+        const healedAmount = targetCharacter.currentHp - oldHp;
+
+        if (targetCharacter === this) {
+        console.log(`${this.name} used ${item.name} on themselves and restored ${healedAmount} HP!`);
+        } else {
+        console.log(`${this.name} used ${item.name} on ${targetCharacter.name} and restored ${healedAmount} HP!`);
+        }
+
+        // Consume the item from the user
+        this.currentItem = null;
+    }
+    }
+}
+
+class Enemy {
+  constructor(type, attackPower, hp, weakness, strength ) {
+    this.name = type;
+    this.attackPower = attackPower;
+    this.hp= hp;
+    this.weakness= weakness.toLowerCase();
+    this.strength= strength.toLowerCase();
+    this.isAnalysed= false;
+  }
+  // add attack here
+  attack(target) {
+    target.currentHp = Math.max(0, target.currentHp - this.attackPower);
+    console.log(`💥 ${this.name} attacks ${target.name} you receive  ${this.attackPower} damage!`);
+    console.log(`❤️ ${target.name}'s HP: ${target.currentHp}/${target.maxHp}`);
+
+    if (target.currentHp === 0) {
+      console.log(`😱 ${target.name} has been knocked out!`);
+    }
+  }
 }

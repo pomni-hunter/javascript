@@ -2,7 +2,7 @@
 
 
 // ── THE NEW SCOUT METHOD ──
-analyze(enemy) {
+scout(enemy) {
     // Safety Check: Make sure the DM actually spawned something first!
     if (!enemy) {
         console.log("❌ %cSYSTEM ERROR: No target found in this room to analyze!", "color: #ff3333; font-weight: bold;");
@@ -18,7 +18,7 @@ analyze(enemy) {
     console.log(`🔍%c SCANNING TARGET WITH ${this.name.toUpperCase()}...`, "font-weight: bold; color: #a370f7; font-size: 13px;");
     console.log("%c==================================================", "color: #a370f7;");
     console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #fff;");
-    console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #00ff66;");
+    console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #f51be3;");
     console.log(`🎯 WEAKNESS:    %c${enemy.weakness.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
     console.log("%c==================================================", "color: #a370f7;");
 }

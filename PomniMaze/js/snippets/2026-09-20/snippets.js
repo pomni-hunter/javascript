@@ -4,7 +4,9 @@
 const ITEM_CATALOG = {
   APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
   POTION: { name: "Health Potion", type: "Heal", power: 30 },
-  SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 }
+  SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
+  TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
+  ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
 };
 
 // ==========================================
@@ -23,24 +25,27 @@ if (woody) {
 // 3. ATTACK
 // ==========================================
 class Enemy {
-  constructor(type, attackPower) {
+  constructor(type, attackPower, hp, weakness, strenght, ) {
     this.name = type;
     this.attackPower = attackPower;
-    // add fields here
+    this.hp= totalHP;
+    this.weakness= weakness.toLowerCase();
+    this.strength= strength.toLowerCase();
+    this.isAnalysed= false;
   }
-
   // add attack here
-}
+  attack(target) {
+    target.currentHp = Math.max(0, target.currentHp - this.attackPower);
+    console.log(`💥 ${this.name} attacks ${target.name} you receive  ${this.attackPower} damage!`);
+    console.log(`❤️ ${target.name}'s HP: ${target.currentHp}/${target.maxHp}`);
 
-attack(target) {
-  target.currentHp = Math.max(0, target.currentHp - this.attackPower);
-  console.log(`💥 ${this.name} attacks ${target.name} you receive  ${this.attackPower} damage!`);
-  console.log(`❤️ ${target.name}'s HP: ${target.currentHp}/${target.maxHp}`);
-
-  if (target.currentHp === 0) {
-    console.log(`😱 ${target.name} has been knocked out!`);
+    if (target.currentHp === 0) {
+      console.log(`😱 ${target.name} has been knocked out!`);
+    }
   }
 }
+
+
 
 
 // Pass targetCharacter to use an item on anyone on the team
