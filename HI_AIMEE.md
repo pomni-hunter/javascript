@@ -81,4 +81,4 @@ did you have fun harvesting rice
 
 what did you have for lunch today?
 
-> 
+> I have noodles for lunch today.
