@@ -21,11 +21,11 @@ const JOBS = {
     cgs: "cowgirl sheriff"
 };
 const ITEM_CATALOG = {
-  APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
-  POTION: { name: "Health Potion", type: "Heal", power: 30 },
-  SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
-  TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
-  ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
+    APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
+    POTION: { name: "Health Potion", type: "Heal", power: 30 },
+    SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
+    TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
+    ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
 };
 
 // =========================================================================
@@ -444,12 +444,10 @@ class Sword extends Item {
         let defeatedMessage = "";
         let defeatedStyle = "color: #ff3333; font-weight: bold;";
         let dropMessage = "";
-        let dropMessageStyle = "color: #ffcc00; font-weight: bold;"
+        let dropMessageStyle = "color: #ffcc00; font-weight: bold;";
         let purseCountMessage = "";
         let purseCountMessageStyle = "color: #ffcc00; font-style: italic;";
         let remainingHpMessage = "";
-
-        let isDefeated = false;
 
         // ── THE UNIVERSAL ENGINE MATCHMAKER ──
         if (enemy && enemy.weakness === this.element) {
@@ -457,12 +455,12 @@ class Sword extends Item {
             effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
         }
-        const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
-        enemy.hp -= finalDamage;
 
-        if (enemy.hp <= 0) {
-            isDefeated = true;
-            enemy.hp = 0;
+        // ── ROUTE DAMAGE THROUGH ENEMY'S OWN METHOD ──
+        // takeDamage() updates enemy.hp, stops timers if defeated, and returns true if killed
+        const isDefeated = enemy ? enemy.takeDamage(finalDamage) : false;
+
+        if (isDefeated) {
             defeatedMessage = `☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`;
 
             // 1. Look up max coins from dictionary (default to 5 if not listed)
@@ -474,35 +472,27 @@ class Sword extends Item {
             dropMessage = `🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`;
 
             // 3. Save to localStorage
-            var currentCoins = addCoinsToStorage(coinsDropped);
+            const currentCoins = addCoinsToStorage(coinsDropped);
 
             // 4. Display total purse
             purseCountMessage = `💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`;
 
-        } else {
-            remainingHpMessage = `❤️ ${enemy.name} HP remaining: ${enemy.hp}`;
+        } else if (enemy) {
+            remainingHpMessage = `❤️ ${enemy.name} HP remaining: ${enemy.hp}/${enemy.maxHp}`;
         }
-
 
         // Helper function to handle local persistence
         function addCoinsToStorage(amount) {
-            // 1. Read existing coins (convert from string to number, default to 0 if null)
             let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
-
-            // 2. Add new coins
             currentCoins += amount;
-
-            // 3. Save back to localStorage
             localStorage.setItem("heroCoins", currentCoins);
-
             return currentCoins;
         }
-
-
 
         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
         console.log("%c--------------------------------------------------", "color: #555;");
+
         if (isDefeated) {
             console.log(defeatedMessage, defeatedStyle);
             console.log(dropMessage, dropMessageStyle);
@@ -510,6 +500,7 @@ class Sword extends Item {
         } else {
             console.log(remainingHpMessage);
         }
+
         this.reduceDurability();
     }
 }
@@ -642,41 +633,94 @@ class Character {
         if (item.type === "Heal") {
             const oldHp = targetCharacter.currentHp;
             targetCharacter.currentHp = Math.min(
-            targetCharacter.maxHp,
-            targetCharacter.currentHp + item.power
+                targetCharacter.maxHp,
+                targetCharacter.currentHp + item.power
             );
 
-        const healedAmount = targetCharacter.currentHp - oldHp;
+            const healedAmount = targetCharacter.currentHp - oldHp;
 
-        if (targetCharacter === this) {
-        console.log(`${this.name} used ${item.name} on themselves and restored ${healedAmount} HP!`);
-        } else {
-        console.log(`${this.name} used ${item.name} on ${targetCharacter.name} and restored ${healedAmount} HP!`);
+            if (targetCharacter === this) {
+                console.log(`${this.name} used ${item.name} on themselves and restored ${healedAmount} HP!`);
+            } else {
+                console.log(`${this.name} used ${item.name} on ${targetCharacter.name} and restored ${healedAmount} HP!`);
+            }
+
+            // Consume the item from the user
+            this.currentItem = null;
         }
-
-        // Consume the item from the user
-        this.currentItem = null;
-    }
     }
 }
 
 class Enemy {
-  constructor(type, attackPower, hp, weakness, strength ) {
-    this.name = type;
-    this.attackPower = attackPower;
-    this.hp= hp;
-    this.weakness= weakness.toLowerCase();
-    this.strength= strength.toLowerCase();
-    this.isAnalysed= false;
-  }
-  // add attack here
-  attack(target) {
-    target.currentHp = Math.max(0, target.currentHp - this.attackPower);
-    console.log(`💥 ${this.name} attacks ${target.name} you receive  ${this.attackPower} damage!`);
-    console.log(`❤️ ${target.name}'s HP: ${target.currentHp}/${target.maxHp}`);
-
-    if (target.currentHp === 0) {
-      console.log(`😱 ${target.name} has been knocked out!`);
+    constructor(type, attackPower, hp, weakness, strength) {
+        this.name = type;
+        this.attackPower = attackPower;
+        this.hp = hp;
+        this.weakness = weakness.toLowerCase();
+        this.strength = strength.toLowerCase();
+        this.isAnalysed = false;
     }
-  }
+    // add attack here
+    attack(target) {
+        target.currentHp = Math.max(0, target.currentHp - this.attackPower);
+        console.log(`💥 ${this.name} attacks ${target.name} you receive  ${this.attackPower} damage!`);
+        console.log(`❤️ ${target.name}'s HP: ${target.currentHp}/${target.maxHp}`);
+
+        if (target.currentHp === 0) {
+            console.log(`😱 ${target.name} has been knocked out!`);
+        }
+    }
+
+    takeDamage(amount) {
+        this.hp = Math.max(0, this.hp - amount);
+        console.log(`💥 ${this.name} took ${amount} damage! HP remaining: ${this.hp}/${this.maxHp}`);
+
+        if (this.hp === 0) {
+            console.log(`☠️ ${this.name} has been defeated!`);
+            this.stopAutoAttack();
+        }
+    }
+
+    startAutoAttack(target, maxSeconds = 10) {
+        console.log(`⚔️ ${this.name} gets ready for combat!`);
+
+        // Helper to get a random delay between 3 seconds and maxSeconds
+        const getRandomDelay = () => {
+            const minMs = 3000; // Minimum 3-second delay
+            const maxMs = maxSeconds * 1000;
+            return Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
+        };
+
+        // Recursive timeout loop to simulate random attack patterns
+        const scheduleNextAttack = () => {
+            const randomDelay = getRandomDelay();
+            console.log(`⏳ (${this.name} is winding up... next attack in ${(randomDelay / 1000).toFixed(1)}s)`);
+
+            this.attackTimer = setTimeout(() => {
+                // Perform attack if target is still alive
+                if (target.currentHp > 0) {
+                    this.attack(target);
+                    console.log(`🛡️ ${target.name} HP: ${target.currentHp}/${target.maxHp}`);
+
+                    // Schedule the next attack in the loop
+                    scheduleNextAttack();
+                } else {
+                    console.log(`🏆 ${target.name} has been defeated! ${this.name} stands victorious.`);
+                    this.stopAutoAttack();
+                }
+            }, randomDelay);
+        };
+
+        // Kick off the first attack cycle
+        scheduleNextAttack();
+    }
+
+    // Stops the enemy attack loop (e.g., when the enemy dies or battle ends)
+    stopAutoAttack() {
+        if (this.attackTimer) {
+            clearTimeout(this.attackTimer);
+            this.attackTimer = null;
+            console.log(`🛑 ${this.name}'s attack timer stopped.`);
+        }
+    }
 }
