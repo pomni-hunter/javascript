@@ -135,3 +135,19 @@ class Gun extends Weapon {
         this.attack(enemy, "shoot", "BANG!");
     }
 }
+class PickAxe extends Weapon {
+    pick(enemy){
+        this.attack(enemy,"pick","CLANG!");
+    }
+}
+
+class SnakeInBoot extends Weapon{
+    hiss(enemy){
+        this.attack(enemy, "bite", "HISS", 5)
+    }
+}
+class Ring extends Weapon {
+    toss(enemy){
+        this.attack(enemy, "toss","SHINE!",10)
+    }
+}
