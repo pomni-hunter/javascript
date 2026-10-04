@@ -364,235 +364,234 @@ class DungeonMaster {
 // =========================================================================
 // 2. PARENT ITEM CLASS (With Default Parameter)
 // =========================================================================
-class Item {
-    constructor(name, durability, basePower, element = "physical") {
-        this.name = name;
-        this.durability = durability;
-        this.basePower = basePower;
-        this.element = element.toLowerCase(); // e.g. "fire", "ice", "water", "fish"
-    }
-    scout(enemy) {
-        // Safety Check: Make sure the DM actually spawned something first!
-        if (!enemy) {
-            console.log("❌ %cSYSTEM ERROR: No target found in this room to analyze!", "color: #ff3333; font-weight: bold;");
-            return;
-        }
+// class Item {
+//     constructor(name, durability, basePower, element = "physical") {
+//         this.name = name;
+//         this.durability = durability;
+//         this.basePower = basePower;
+//         this.element = element.toLowerCase(); // e.g. "fire", "ice", "water", "fish"
+//     }
+//     scout(enemy) {
+//         // Safety Check: Make sure the DM actually spawned something first!
+//         if (!enemy) {
+//             console.log("❌ %cSYSTEM ERROR: No target found in this room to analyze!", "color: #ff3333; font-weight: bold;");
+//             return;
+//         }
 
-        // 1. Flip the hidden data flag on the monster to true
-        enemy.isAnalyzed = true;
+//         // 1. Flip the hidden data flag on the monster to true
+//         enemy.isAnalyzed = true;
 
-        console.clear();
+//         console.clear();
 
-        // 2. Pop the tactical tactical scanning dashboard
-        console.log(`🔍%c SCANNING TARGET WITH ${this.name.toUpperCase()}...`, "font-weight: bold; color: #a370f7; font-size: 13px;");
-        console.log("%c==================================================", "color: #a370f7;");
-        console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #050505;");
-        console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #f51be3;");
-        console.log(`🎯 WEAKNESS:    %c${enemy.weakness.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
-        console.log(`🎯 STRENGTH:    %c${enemy.strength.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
-        console.log("%c==================================================", "color: #a370f7;");
-    }
-    reduceDurability(enemy) {
-        // 1. Establish the normal base wear (1 to 3 damage)
-        let wear = Math.floor(Math.random() * 3) + 1;
-        let message = "";
+//         // 2. Pop the tactical tactical scanning dashboard
+//         console.log(`🔍%c SCANNING TARGET WITH ${this.name.toUpperCase()}...`, "font-weight: bold; color: #a370f7; font-size: 13px;");
+//         console.log("%c==================================================", "color: #a370f7;");
+//         console.log(`👾 TARGET NAME: %c${enemy.name.toUpperCase()}`, "font-weight: bold; color: #050505;");
+//         console.log(`❤️ CURRENT HP:  %c${enemy.hp}`, "font-weight: bold; color: #f51be3;");
+//         console.log(`🎯 WEAKNESS:    %c${enemy.weakness.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
+//         console.log(`🎯 STRENGTH:    %c${enemy.strength.toUpperCase()}`, "font-weight: bold; color: #ffaa00;");
+//         console.log("%c==================================================", "color: #a370f7;");
+//     }
+//     reduceDurability(enemy) {
+//         // 1. Establish the normal base wear (1 to 3 damage)
+//         let wear = Math.floor(Math.random() * 3) + 1;
+//         let message = "";
 
-        // 2. ── THE RESISTANCE PENALTY CHECK ──
-        // Let's check if the enemy exists and has an innate strength against our element
-        if (enemy && enemy.strength === this.element) {
-            wear += 4; // 👈 Simple flat penalty modifier! +4 extra durability loss
-            message = " 💥 CLANG! The monster is resistant! Extra wear penalty applied!";
-        }
+//         // 2. ── THE RESISTANCE PENALTY CHECK ──
+//         // Let's check if the enemy exists and has an innate strength against our element
+//         if (enemy && enemy.strength === this.element) {
+//             wear += 4; // 👈 Simple flat penalty modifier! +4 extra durability loss
+//             message = " 💥 CLANG! The monster is resistant! Extra wear penalty applied!";
+//         }
 
-        // 3. Apply the final damage to the weapon
-        this.durability -= wear;
-        if (this.durability < 0) this.durability = 0;
+//         // 3. Apply the final damage to the weapon
+//         this.durability -= wear;
+//         if (this.durability < 0) this.durability = 0;
 
-        // 4. Print the result using your sweet-spot console layout
-        console.log(`📉%cThe ${this.name} took ${wear} wear damage! (Remaining Durability: ${this.durability})${message}`, "color: #ff6666; font-style: italic;");
-    }
-
-
-    calculateDamage() {
-        // Teach about Random HERE!!
-        const randomBonus = Math.floor(Math.random() * 6);
-        return this.basePower + randomBonus;
-        // TODO: allow randomBonus to be a turn by turn input (if the power-up is available) 
-    }
-}
-
-// =========================================================================
-// 3. CHILD WEAPON CLASS (Accepting Custom Name & Dice Multipliers)
-// =========================================================================
-class Sword extends Item {
-
-    constructor(customName, durabilityDie, powerDie, element = "physical") {
-        // Multiplies raw dice properties and passes element to parent constructor
-        super(customName, durabilityDie * 5, powerDie * 3, element);
-    }
-
-    slash(enemy) {
-        console.clear();
-        if (this.durability <= 0) {
-            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
-            return;
-        }
-
-        let finalDamage = this.calculateDamage();
-        let effectivenessMessage = " ✨ (NORMAL HIT!)";
-        let effectiveStyle = "color: #888; font-style: italic;";
-        let defeatedMessage = "";
-        let defeatedStyle = "color: #ff3333; font-weight: bold;";
-        let dropMessage = "";
-        let dropMessageStyle = "color: #ffcc00; font-weight: bold;";
-        let purseCountMessage = "";
-        let purseCountMessageStyle = "color: #ffcc00; font-style: italic;";
-        let remainingHpMessage = "";
-
-        // ── THE UNIVERSAL ENGINE MATCHMAKER ──
-        if (enemy && enemy.weakness === this.element) {
-            finalDamage = finalDamage * 2; // Double damage buff!
-            effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
-            effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
-        }
-
-        // ── ROUTE DAMAGE THROUGH ENEMY'S OWN METHOD ──
-        // takeDamage() updates enemy.hp, stops timers if defeated, and returns true if killed
-        const isDefeated = enemy ? enemy.takeDamage(finalDamage) : false;
-
-        if (isDefeated) {
-            defeatedMessage = `☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`;
-
-            // 1. Look up max coins from dictionary (default to 5 if not listed)
-            const monsterKey = enemy.name.toLowerCase();
-            const maxCoins = MONSTER_LOOT_TABLE[monsterKey] || 5;
-
-            // 2. Roll random coins from 1 to MAX
-            const coinsDropped = Math.floor(Math.random() * maxCoins) + 1;
-            dropMessage = `🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`;
-
-            // 3. Save to localStorage
-            const currentCoins = addCoinsToStorage(coinsDropped);
-
-            // 4. Display total purse
-            purseCountMessage = `💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`;
-
-        } else if (enemy) {
-            remainingHpMessage = `❤️ ${enemy.name} HP remaining: ${enemy.hp}/${enemy.maxHp}`;
-        }
-
-        // Helper function to handle local persistence
-        function addCoinsToStorage(amount) {
-            let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
-            currentCoins += amount;
-            localStorage.setItem("heroCoins", currentCoins);
-            return currentCoins;
-        }
-
-        console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
-        console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
-        console.log("%c--------------------------------------------------", "color: #555;");
-
-        if (isDefeated) {
-            console.log(defeatedMessage, defeatedStyle);
-            console.log(dropMessage, dropMessageStyle);
-            console.log(purseCountMessage, purseCountMessageStyle);
-        } else {
-            console.log(remainingHpMessage);
-        }
-
-        this.reduceDurability();
-    }
-}
-
-class Yoyo extends Item {
-    constructor(customName, durabilityDie, powerDie, element = "physical") {
-        // Multiplies raw dice properties and passes element to parent constructor
-        super(customName, durabilityDie * 5, powerDie * 3, element);
-    }
-
-    swing(enemy) {
-        if (this.durability <= 0) {
-            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
-            return;
-        }
-
-        let finalDamage = this.calculateDamage();
-        let effectivenessMessage = " ✨ (NORMAL HIT!)";
-        let effectiveStyle = "color: #888; font-style: italic;";
-
-        // ── THE UNIVERSAL ENGINE MATCHMAKER ──
-        if (enemy && enemy.weakness === this.element) {
-            finalDamage = finalDamage * 2; // Double damage buff!
-            effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
-            effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
-        }
-        const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
+//         // 4. Print the result using your sweet-spot console layout
+//         console.log(`📉%cThe ${this.name} took ${wear} wear damage! (Remaining Durability: ${this.durability})${message}`, "color: #ff6666; font-style: italic;");
+//     }
 
 
-        console.clear();
+//     calculateDamage() {
+//         const randomBonus = Math.floor(Math.random() * 6);
+//         return this.basePower + randomBonus;
+//         // TODO: allow randomBonus to be a turn by turn input (if the power-up is available) 
+//     }
+// }
 
-        console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
-        console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
-        console.log("%c--------------------------------------------------", "color: #555;");
+// // =========================================================================
+// // 3. CHILD WEAPON CLASS (Accepting Custom Name & Dice Multipliers)
+// // =========================================================================
+// class Sword extends Item {
 
-        this.reduceDurability();
-    }
-    fire(enemy) {
-        if (this.durability <= 0) {
-            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
-            return;
-        }
+//     constructor(customName, durabilityDie, powerDie, element = "physical") {
+//         // Multiplies raw dice properties and passes element to parent constructor
+//         super(customName, durabilityDie * 5, powerDie * 3, element);
+//     }
 
-        const totalDamage = this.calculateDamage();
+//     slash(enemy) {
+//         console.clear();
+//         if (this.durability <= 0) {
+//             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+//             return;
+//         }
 
-        console.clear();
+//         let finalDamage = this.calculateDamage();
+//         let effectivenessMessage = " ✨ (NORMAL HIT!)";
+//         let effectiveStyle = "color: #888; font-style: italic;";
+//         let defeatedMessage = "";
+//         let defeatedStyle = "color: #ff3333; font-weight: bold;";
+//         let dropMessage = "";
+//         let dropMessageStyle = "color: #ffcc00; font-weight: bold;";
+//         let purseCountMessage = "";
+//         let purseCountMessageStyle = "color: #ffcc00; font-style: italic;";
+//         let remainingHpMessage = "";
+
+//         // ── THE UNIVERSAL ENGINE MATCHMAKER ──
+//         if (enemy && enemy.weakness === this.element) {
+//             finalDamage = finalDamage * 2; // Double damage buff!
+//             effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
+//             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
+//         }
+
+//         // ── ROUTE DAMAGE THROUGH ENEMY'S OWN METHOD ──
+//         // takeDamage() updates enemy.hp, stops timers if defeated, and returns true if killed
+//         const isDefeated = enemy ? enemy.takeDamage(finalDamage) : false;
+
+//         if (isDefeated) {
+//             defeatedMessage = `☠️ %c${enemy.name.toUpperCase()} HAS BEEN DEFEATED!`;
+
+//             // 1. Look up max coins from dictionary (default to 5 if not listed)
+//             const monsterKey = enemy.name.toLowerCase();
+//             const maxCoins = MONSTER_LOOT_TABLE[monsterKey] || 5;
+
+//             // 2. Roll random coins from 1 to MAX
+//             const coinsDropped = Math.floor(Math.random() * maxCoins) + 1;
+//             dropMessage = `🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`;
+
+//             // 3. Save to localStorage
+//             const currentCoins = addCoinsToStorage(coinsDropped);
+
+//             // 4. Display total purse
+//             purseCountMessage = `💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`;
+
+//         } else if (enemy) {
+//             remainingHpMessage = `❤️ ${enemy.name} HP remaining: ${enemy.hp}/${enemy.maxHp}`;
+//         }
+
+//         // Helper function to handle local persistence
+//         function addCoinsToStorage(amount) {
+//             let currentCoins = parseInt(localStorage.getItem("heroCoins")) || 0;
+//             currentCoins += amount;
+//             localStorage.setItem("heroCoins", currentCoins);
+//             return currentCoins;
+//         }
+
+//         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+//         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
+//         console.log("%c--------------------------------------------------", "color: #555;");
+
+//         if (isDefeated) {
+//             console.log(defeatedMessage, defeatedStyle);
+//             console.log(dropMessage, dropMessageStyle);
+//             console.log(purseCountMessage, purseCountMessageStyle);
+//         } else {
+//             console.log(remainingHpMessage);
+//         }
+
+//         this.reduceDurability();
+//     }
+// }
+
+// class Yoyo extends Item {
+//     constructor(customName, durabilityDie, powerDie, element = "physical") {
+//         // Multiplies raw dice properties and passes element to parent constructor
+//         super(customName, durabilityDie * 5, powerDie * 3, element);
+//     }
+
+//     swing(enemy) {
+//         if (this.durability <= 0) {
+//             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+//             return;
+//         }
+
+//         let finalDamage = this.calculateDamage();
+//         let effectivenessMessage = " ✨ (NORMAL HIT!)";
+//         let effectiveStyle = "color: #888; font-style: italic;";
+
+//         // ── THE UNIVERSAL ENGINE MATCHMAKER ──
+//         if (enemy && enemy.weakness === this.element) {
+//             finalDamage = finalDamage * 2; // Double damage buff!
+//             effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
+//             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
+//         }
+//         const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
 
 
-        console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
-        console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
-        console.log("%c--------------------------------------------------", "color: #555;");
+//         console.clear();
 
-        this.reduceDurability();
+//         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+//         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
+//         console.log("%c--------------------------------------------------", "color: #555;");
 
-    }
-}
+//         this.reduceDurability();
+//     }
+//     fire(enemy) {
+//         if (this.durability <= 0) {
+//             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+//             return;
+//         }
 
+//         const totalDamage = this.calculateDamage();
 
-class Gun extends Item {
-    constructor(customName, durabilityDie, powerDie, element = "physical") {
-        // Multiplies raw dice properties and passes element to parent constructor
-        super(customName, durabilityDie * 5, powerDie * 3, element);
-    }
-
-    shoot(enemy) {
-        if (this.durability <= 0) {
-            console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
-            return;
-        }
-
-        let finalDamage = this.calculateDamage();
-        let effectivenessMessage = " ✨ (NORMAL HIT!)";
-        let effectiveStyle = "color: #888; font-style: italic;";
-
-        // ── THE UNIVERSAL ENGINE MATCHMAKER ──
-        if (enemy && enemy.weakness === this.element) {
-            finalDamage = finalDamage * 2; // Double damage buff!
-            effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
-            effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
-        }
-        const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
+//         console.clear();
 
 
-        console.clear();
+//         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+//         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
+//         console.log("%c--------------------------------------------------", "color: #555;");
 
-        console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
-        console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
-        console.log("%c--------------------------------------------------", "color: #555;");
+//         this.reduceDurability();
 
-        this.reduceDurability();
-    }
-}
+//     }
+// }
+
+
+// class Gun extends Item {
+//     constructor(customName, durabilityDie, powerDie, element = "physical") {
+//         // Multiplies raw dice properties and passes element to parent constructor
+//         super(customName, durabilityDie * 5, powerDie * 3, element);
+//     }
+
+//     shoot(enemy) {
+//         if (this.durability <= 0) {
+//             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
+//             return;
+//         }
+
+//         let finalDamage = this.calculateDamage();
+//         let effectivenessMessage = " ✨ (NORMAL HIT!)";
+//         let effectiveStyle = "color: #888; font-style: italic;";
+
+//         // ── THE UNIVERSAL ENGINE MATCHMAKER ──
+//         if (enemy && enemy.weakness === this.element) {
+//             finalDamage = finalDamage * 2; // Double damage buff!
+//             effectivenessMessage = " ☄️ (CRITICAL WEAKNESS MATCH! DOUBLE DAMAGE!)";
+//             effectiveStyle = "color: #ffaa00; font-weight: bold; font-size: 13px;";
+//         }
+//         const randomBonus = finalDamage - (this.basePower * (enemy && enemy.weakness === this.element ? 2 : 1));
+
+
+//         console.clear();
+
+//         console.log(`⚔️%cSWISH! You slash at the ${enemy ? enemy.name.toUpperCase() : "TARGET"} with ${this.name}!`, "font-weight: bold; font-size: 13px; color: #33b5e5;");
+//         console.log(`💥%cDAMAGE DEALT: ${finalDamage}%c${effectivenessMessage}`, "color: #ffaa00; font-weight: bold; font-size: 14px;", effectiveStyle);
+//         console.log("%c--------------------------------------------------", "color: #555;");
+
+//         this.reduceDurability();
+//     }
+// }
 // =========================================================================
 // 💥 Fighting System END
 // =========================================================================

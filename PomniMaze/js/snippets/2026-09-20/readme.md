@@ -1,11 +1,11 @@
-[] add maxHp and currentHp to Character
-[] ITEM Catalog
+[x] add maxHp and currentHp to Character
+[x] ITEM Catalog
 [] move enemy to class from DM onject, inject the js
 
 --- BATTLE ---
 
-[] demo healing
-[] add attack function to enemy
+[x] demo healing
+[x] add attack function to enemy
 
 [] make a party array, assign each an item of her choice
    - JAX pawns a new enemy using new code
