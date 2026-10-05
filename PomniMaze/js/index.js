@@ -26,9 +26,9 @@ const ITEM_CATALOG = {
     SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
     TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
     ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
-    HEAL_MILK: { name: "Heal sweet mlik", type: "Heal", power: 100},
-    JUICE: { name: "Orange juice", type: "Heal", power: 45},
-    PHONE: { name: "Iphone11", type: "Buff", power: 10},
+    HEAL_MILK: { name: "Heal sweet mlik", type: "Heal", power: 100 },
+    JUICE: { name: "Orange juice", type: "Heal", power: 45 },
+    PHONE: { name: "Iphone11", type: "Buff", power: 10 },
 };
 
 // =========================================================================
@@ -651,24 +651,6 @@ class Character {
             this.currentItem = null;
         }
     }
-    gainXp(amount) {
-        this.xp += amount;
-        console.log(`🌟 %c${this.name} gained ${amount} XP! (${this.xp}/100 XP)`, "color: #00e5ff; font-weight: bold;");
-
-        if (this.xp >= 100) {
-            this.levelUp();
-        }
-    }
-
-    levelUp() {
-        this.level += 1;
-        this.xp -= 100;
-        this.maxHp += 15;
-        this.currentHp = this.maxHp; // Full restore on level up!
-        console.log(`🎉 %cLEVEL UP! ${this.name} is now Level ${this.level}!`, "color: #00ff00; font-weight: bold; font-size: 14px;");
-        console.log(`❤️ Max HP boosted to ${this.maxHp}!`);
-    }
-
 }
 
 class Enemy {
