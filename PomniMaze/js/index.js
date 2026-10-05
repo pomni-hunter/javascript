@@ -26,6 +26,9 @@ const ITEM_CATALOG = {
     SHERIFF_BADGE: { name: "Sheriff Badge", type: "Buff", power: 5 },
     TECHNOLOGY: { name: "Pomni's ipad technology", type: "Buff", power: 100 },
     ICE_CREAM: { name: "Strawberry ice cream", type: "Heal", power: 55 },
+    HEAL_MILK: { name: "Heal sweet mlik", type: "Heal", power: 100},
+    JUICE: { name: "Orange juice", type: "Heal", power: 45},
+    PHONE: { name: "Iphone11", type: "Buff", power: 10},
 };
 
 // =========================================================================
