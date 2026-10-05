@@ -31,7 +31,7 @@ const iceSword = new Sword("Frost Bite", 3, 4, "ice");
 const thunderSword = new Sword("Volt Saber", 5, 2, "thunder");
 
 // 2. Put them in an array
-const weaponArsenal = [fireSword, iceSword, thunderSword];
+const weaponArsenal = [];
 
 // 3. Save to localStorage so they persist
 localStorage.setItem("heroArsenal", JSON.stringify(weaponArsenal));

@@ -86,3 +86,7 @@ what did you have for lunch today?
 did you have fun on the swings?
 
 > Yes. Well, my friends had fun, too.
+
+Are you looking forward to Autumn break this weekend?
+
+>
