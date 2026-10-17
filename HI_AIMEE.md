@@ -98,4 +98,4 @@ Please send me what you wanted to say yesterday. remember to save (command s) th
 
 How was your day today?
 
-> 
+> that was great.
