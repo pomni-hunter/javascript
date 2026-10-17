@@ -107,6 +107,11 @@ class Weapon extends Item {
 
         console.log(`🪙 %cMONSTER DROPPED ${coinsDropped} GOLD COINS!`, "color: #ffcc00; font-weight: bold;");
         console.log(`💰 %cTOTAL PURSE: ${currentCoins} Coins (Saved to Storage!)`, "color: #ffcc00; font-style: italic;");
+
+        // Directly reward whichever character is currently active in the session!
+        if (typeof activeHero !== 'undefined' && activeHero) {
+            activeHero.gainXp(50);
+        }
     }
 }
 
@@ -136,18 +141,18 @@ class Gun extends Weapon {
     }
 }
 class PickAxe extends Weapon {
-    pick(enemy){
-        this.attack(enemy,"pick","CLANG!");
+    pick(enemy) {
+        this.attack(enemy, "pick", "CLANG!");
     }
 }
 
-class SnakeInBoot extends Weapon{
-    hiss(enemy){
+class SnakeInBoot extends Weapon {
+    hiss(enemy) {
         this.attack(enemy, "bite", "HISS", 5)
     }
 }
 class Ring extends Weapon {
-    toss(enemy){
-        this.attack(enemy, "toss","SHINE!",10)
+    toss(enemy) {
+        this.attack(enemy, "toss", "SHINE!", 10)
     }
 }
