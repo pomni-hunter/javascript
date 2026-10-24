@@ -605,6 +605,7 @@ class Character {
     constructor(name, job) {
         this.name = name;
         this.job = job;
+        this.inventory = ['POTION', 'JUICE', 'HEAL_MILK']; // Array of item keys from ITEM_CATALOG
         this.currentItem = null;   // Reserved for future items
         this.currentWeapon = null; // Will hold a Weapon instance
         this.currentHp = 100;

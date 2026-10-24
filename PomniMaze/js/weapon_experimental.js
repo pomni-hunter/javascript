@@ -57,7 +57,7 @@ class Weapon extends Item {
 
     // Core combat method shared by all weapons
     attack(enemy, actionVerb = "attack", soundEffect = "SWISH", powerBonus = 0) {
-        console.clear();
+        // console.clear();
 
         if (this.durability <= 0) {
             console.log(`%c❌ Your ${this.name} is completely broken! It deals 0 damage.`, "color: red; font-weight: bold;");
@@ -76,7 +76,8 @@ class Weapon extends Item {
         }
 
         // Apply damage & evaluate defeat
-        const isDefeated = enemy ? enemy.takeDamage(finalDamage) : false;
+        enemy.takeDamage(finalDamage)
+        const isDefeated = enemy.hp <= 0;
 
         // Render Combat Console Output
         const targetName = enemy ? enemy.name.toUpperCase() : "TARGET";
