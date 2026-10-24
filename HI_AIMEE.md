@@ -94,8 +94,12 @@ Are you looking forward to Autumn break this weekend?
 Hi Aimee. I am trying to fix the problem from yesterday.
 
 Please send me what you wanted to say yesterday. remember to save (command s) then add . then commit -m"" then push
-
+S
 
 How was your day today?
 
 > that was great.
+
+What was yoour favorite part of your play today?
+
+> 
