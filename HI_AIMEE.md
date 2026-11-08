@@ -106,4 +106,4 @@ What was yoour favorite part of your play today?
 
 How big whas your sweet potato?
 
-> S
+> Great, some sweet potatos looked like a potato heads and pumpkin!
