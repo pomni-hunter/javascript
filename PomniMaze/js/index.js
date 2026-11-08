@@ -18,7 +18,8 @@ const JOBS = {
     jester: "jester",
     dm: "dm",
     cbs: "cowboy sheriff",
-    cgs: "cowgirl sheriff"
+    cgs: "cowgirl sheriff",
+    sr:"space ranger"
 };
 const ITEM_CATALOG = {
     APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
