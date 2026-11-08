@@ -745,6 +745,21 @@ class Enemy {
         }
     }
 
+    // takeDamage(amount, attacker) { // 👈 1. Accept the attacker here
+    //     this.hp = Math.max(0, this.hp - amount);
+    //     console.log(`💥 ${this.name} took ${amount} damage! HP remaining: ${this.hp}/${this.maxHp}`);
+
+    //     if (this.hp === 0) {
+    //         console.log(`☠️ ${this.name} has been defeated!`);
+    //         this.stopAutoAttack();
+
+    //         // 🌟 2. TRIGGER XP RIGHT HERE!
+    //         if (attacker && typeof attacker.gainXp === 'function') {
+    //             attacker.gainXp(50); // Awards 50 XP to whichever hero dealt the blow!
+    //         }
+    //     }
+    // }
+
     startAutoAttack(target, maxSeconds = 10) {
         console.log(`⚔️ ${this.name} gets ready for combat!`);
 
