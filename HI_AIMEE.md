@@ -107,3 +107,7 @@ What was yoour favorite part of your play today?
 How big whas your sweet potato?
 
 > Great, some sweet potatos looked like a potato heads and pumpkin!
+
+Did you have fun at Hawaiians?
+
+> 

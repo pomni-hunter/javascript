@@ -19,7 +19,7 @@ const JOBS = {
     dm: "dm",
     cbs: "cowboy sheriff",
     cgs: "cowgirl sheriff",
-    sr:"space ranger"
+    sr: "space ranger"
 };
 const ITEM_CATALOG = {
     APPLE: { name: "Juicy Apple", type: "Heal", power: 15 },
@@ -761,37 +761,69 @@ class Enemy {
     //     }
     // }
 
-    startAutoAttack(target, maxSeconds = 10) {
-        console.log(`⚔️ ${this.name} gets ready for combat!`);
+    // startAutoAttack(target, maxSeconds = 10) {
+    //     console.log(`⚔️ ${this.name} gets ready for combat!`);
 
-        // Helper to get a random delay between 3 seconds and maxSeconds
+    //     // Helper to get a random delay between 3 seconds and maxSeconds
+    //     const getRandomDelay = () => {
+    //         const minMs = 3000; // Minimum 3-second delay
+    //         const maxMs = maxSeconds * 1000;
+    //         return Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
+    //     };
+
+    //     // Recursive timeout loop to simulate random attack patterns
+    //     const scheduleNextAttack = () => {
+    //         const randomDelay = getRandomDelay();
+    //         console.log(`⏳ (${this.name} is winding up... next attack in ${(randomDelay / 1000).toFixed(1)}s)`);
+
+    //         this.attackTimer = setTimeout(() => {
+    //             // Perform attack if target is still alive
+    //             if (target.currentHp > 0) {
+    //                 this.attack(target);
+    //                 console.log(`🛡️ ${target.name} HP: ${target.currentHp}/${target.maxHp}`);
+
+    //                 // Schedule the next attack in the loop
+    //                 scheduleNextAttack();
+    //             } else {
+    //                 console.log(`🏆 ${target.name} has been defeated! ${this.name} stands victorious.`);
+    //                 this.stopAutoAttack();
+    //             }
+    //         }, randomDelay);
+    //     };
+
+    //     // Kick off the first attack cycle
+    //     scheduleNextAttack();
+    // }
+
+    startAutoAttack(initialTarget, maxSeconds = 10) {
+        this.target = initialTarget; // Store target on the instance so it can be swapped dynamically
+        console.log(`⚔️ ${this.name} gets ready for combat against ${this.target.name}!`);
+
         const getRandomDelay = () => {
-            const minMs = 3000; // Minimum 3-second delay
+            const minMs = 3000;
             const maxMs = maxSeconds * 1000;
             return Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
         };
 
-        // Recursive timeout loop to simulate random attack patterns
         const scheduleNextAttack = () => {
             const randomDelay = getRandomDelay();
             console.log(`⏳ (${this.name} is winding up... next attack in ${(randomDelay / 1000).toFixed(1)}s)`);
 
             this.attackTimer = setTimeout(() => {
-                // Perform attack if target is still alive
-                if (target.currentHp > 0) {
-                    this.attack(target);
-                    console.log(`🛡️ ${target.name} HP: ${target.currentHp}/${target.maxHp}`);
+                // Always check whoever is currently set as this.target!
+                if (this.target && this.target.currentHp > 0) {
+                    this.attack(this.target);
+                    console.log(`🛡️ ${this.target.name} HP: ${this.target.currentHp}/${this.target.maxHp}`);
 
-                    // Schedule the next attack in the loop
                     scheduleNextAttack();
                 } else {
-                    console.log(`🏆 ${target.name} has been defeated! ${this.name} stands victorious.`);
+                    const fallenName = this.target ? this.target.name : "The hero";
+                    console.log(`🏆 ${fallenName} has been defeated! ${this.name} stands victorious.`);
                     this.stopAutoAttack();
                 }
             }, randomDelay);
         };
 
-        // Kick off the first attack cycle
         scheduleNextAttack();
     }
 
