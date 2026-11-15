@@ -152,8 +152,15 @@ class SnakeInBoot extends Weapon {
         this.attack(enemy, "bite", "HISS", 5)
     }
 }
+
 class Ring extends Weapon {
     toss(enemy) {
         this.attack(enemy, "toss", "SHINE!", 10)
+    }
+}
+
+class Shuriken extends Weapon {
+    throw(enemy){
+        this.attack(enemy,"throw","chit-chit-chit",5)
     }
 }

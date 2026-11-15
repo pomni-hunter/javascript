@@ -5,6 +5,8 @@ const ELEMENT_MATRIX = {
     ice: "fire",       // Fire beats Ice
     water: "ice",      // Ice beats Water
     ghost: "magic",    // Magic beats Ghost
+    wind:"stone",      // Stone beats wind
+    stone:"water",     // Water beats stone
     cat: "fish"        // Fish beats Cat
 };
 const MONSTER_LOOT_TABLE = {
